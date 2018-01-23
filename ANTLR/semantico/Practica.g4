@@ -15,18 +15,13 @@ import java.util.*;
       }
     return 0;
     }
-    public String result(int v){
-  	   result=0;
-       result += v;
-  		return "\n------>"+result+"<--------";
-  	}
 }
 prog  : expression_list;
 expression_list : expression_list expression terminator
                   | expression terminator
                   | terminator
                   ;
-expression : rvalue {System.out.println(result($rvalue.v));};
+expression : rvalue {System.out.println($rvalue.v);};
       | lvalue
       | bvalue
       | bucle_if
@@ -61,7 +56,10 @@ terminator : terminator SEMICOLON
            | crlf
            ;
 crlf : CRLF;
-op  : PLUS | MINUS | DIV | MUL ;
+op returns [char type] : PLUS {$op.type = '+'} 
+	| MINUS {$op.type = '-'} 
+	| DIV {$op.type = '/'} 
+	| MUL {$op.type = '*'} ;
 ASSIGN : '=';
 OPCOMP : '==' | '!=' | '=~' | '<=>' | '>' | '>=' | '<' | '<=' | '===' | '!~' ;
 
