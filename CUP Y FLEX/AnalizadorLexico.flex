@@ -44,7 +44,7 @@ BLANCO = " "
 TAB = \t
 VAL = "+"|"-"
 PUNTO = "."|","|":"
-RESERVADA = undef|do|alias|if|while|unless|until|end|return|yield|not|super|"defined?"|elsif|else|case|when|for|in|rescue|ensure|class|module|redo|def|then|nil|break|self
+
 AGRUPACION = and|or
 OPERADOR = ".."|"..."|"+"|"-"|"*"|"/"|"%"|"**"
 ASIGNACION ="+="|"-="|"*="|"/="|"%="|"**="|"&="|"|="|"^="|"<<="|">>="|"&&="|"||="
@@ -54,10 +54,42 @@ CONCATENACION = "<<"| ">>"
 %%
 /* ------------------------Seccion de reglas y acciones ----------------------*/
 <YYINITIAL> {
+"undef"	{return symbol(sym.UNDEF);}
+"do"	{return symbol(sym.DO);}
+"alias"	{return symbol(sym.ALIAS);}
+"if"	{return symbol(sym.IF);}
+"while"	{return symbol(sym.WHILE);}
+"unless"	{return symbol(sym.UNLESS);}
+"until"	{return symbol(sym.UNTIL);}
+"end"	{return symbol(sym.END);}
+"return"	{return symbol(sym.RETURN);}
+"yield"	{return symbol(sym.YIELD);}
+"not"	{return symbol(sym.NOT);}
+"super"	{return symbol(sym.SUPER);}
+"defined?"	{return symbol(sym.DEFINED);}
+"elsif"	{return symbol(sym.ELSIF);}
+"else"	{return symbol(sym.ELSE);}
+"case"	{return symbol(sym.CASE);}
+"when"	{return symbol(sym.WHEN);}
+"for"	{return symbol(sym.FOR);}
+"in"	{return symbol(sym.IN);}
+"rescue"	{return symbol(sym.RESCUE);}
+"ensure"	{return symbol(sym.ENSURE);}
+"class"	{return symbol(sym.CLASS);}
+"module"	{return symbol(sym.MODULE);}
+"redo"	{return symbol(sym.REDO);}
+"def"	{return symbol(sym.DEF);}
+"then"	{return symbol(sym.THEN);}
+"nil"	{return symbol(sym.NIL);}
+"break"	{return symbol(sym.BREAK);}
+"self"	{return symbol(sym.SELF);}
+
+
+
+
 \"[:jletterdigit:]*\" {return symbol(sym.STRING, new String(yytext()));}
 [1-9][:digit:]* 		{return symbol(sym.INT,new Integer(yytext()));}
 {PUNTO} {System.out.println("Token puntuacion <" +yytext()+ "> encontrado");}
-{RESERVADA}	{System.out.println("Token Palabra reservada <" +yytext()+ "> encontrado");}
 {AGRUPACION} {System.out.println("Token Agrupacion <" +yytext()+ "> encontrado");}
 {VAL} {System.out.println("Token valor <" +yytext()+ "> encontrado");}
 {OPERADOR} {System.out.println("Token Operador <" + yytext()+ "> encontrado");}
