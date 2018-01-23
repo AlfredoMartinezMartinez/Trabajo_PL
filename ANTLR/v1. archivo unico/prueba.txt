@@ -1,0 +1,12 @@
+if nt == 4 then
+	5+4
+else
+if a== 5 then	
+	3+2
+end
+end
+while nt<a
+do 
+  nt=nt+1
+end
+nt=3*5;
