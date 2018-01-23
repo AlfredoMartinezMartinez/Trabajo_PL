@@ -19,12 +19,15 @@ rvalue : assignment
          | FLOAT ;
 
 bucle_if : IF expression THEN crlf expression_list cons_if 
-         | UNLESS expression THEN crlf expression_list cons_unless
+		 | IF expression crlf expression_list cons_if 
+		 | UNLESS expression THEN crlf expression_list cons_unless
+         | UNLESS expression crlf expression_list cons_unless
          ; 
 cons_unless : ELSE crlf expression_list crlf END
             | crlf END
             ;
 cons_if  : ELSIF expression THEN crlf expression_list cons_if
+		 | ELSIF expression crlf expression_list cons_if
          | ELSE crlf expression_list END
          | END
          ;
@@ -34,9 +37,11 @@ bucle_while : WHILE expression crlf DO crlf expression_list END
 	    ;
 assignment : lvalue ASSIGN rvalue;
 lvalue : ID ;
-terminator : SEMICOLON 
-		   | crlf
-		   ;
+terminator : terminator SEMICOLON
+           | terminator crlf
+           | SEMICOLON
+           | crlf
+           ;
 crlf : CRLF;
 ASSIGN : '=';
 OPCOMP : '==' | '!=' | '=~' | '<=>' | '>' | '>=' | '<' | '<=' | '===' | '!~' ; 
@@ -64,7 +69,7 @@ SEMICOLON : ';';
 CRLF : '\r'? '\n';
 
 WS : (' '|'\t')+ -> skip ; 
-
+COMMENT: ('#' ~('\r' | '\n')* '\r'? '\n') -> skip;
  
 
 
