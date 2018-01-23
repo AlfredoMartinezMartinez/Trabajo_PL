@@ -42,7 +42,6 @@ ID= [a-zA-Z]+[a-zA-Z0-9"_""-"]*
 NL = \n|\r|\r\n
 BLANCO = " "
 TAB = \t
-VAL = "+"|"-"
 PUNTO = "."|","|":"
 OPERADOR = ".."|"..."|"+"|"-"|"*"|"/"|"%"|"**"
 ASIGNACION ="+="|"-="|"*="|"/="|"%="|"**="|"&="|"|="|"^="|"<<="|">>="|"&&="|"||="
@@ -94,16 +93,13 @@ CONCATENACION = "<<"| ">>"
 "]" {return symbol(sym.CC);}}
 "$" {return symbol(sym.GLOBAL);}}
 "@" {return symbol(sym.ARROBA);}}
+{OPERADOR} {return symbol(sym.OPERADOR, new String(yytext()));}
+"\""~"\"" {return symbol(sym.LITERAL, new String(yytext()));}
 
 
-
-{PUNTO} {System.out.println("Token puntuacion <" +yytext()+ "> encontrado");}
-{AGRUPACION} {System.out.println("Token Agrupacion <" +yytext()+ "> encontrado");}
-{VAL} {System.out.println("Token valor <" +yytext()+ "> encontrado");}
-{OPERADOR} {System.out.println("Token Operador <" + yytext()+ "> encontrado");}
-{ASIGNACION} {System.out.println("Token Operador de asignacion <" +yytext()+"> encontrado");}
-{COMPARACION} {System.out.println("Token Operador de comparación <" +yytext()+"> encontrado");}
-{CONCATENACION} {System.out.println("Token Concatenación <" +yytext()+"> encontrado");}
+{ASIGNACION} {return symbol(sym.ASIGNACION, new String(yytext()));}
+{COMPARACION} {return symbol(sym.COMPARACION, new String(yytext()));}
+{CONCATENACION} {return symbol(sym.CONCATENACION, new String(yytext()));}
 
 {NL}				{ /* ignoramos los saltos de l�nea y retornos de carro */ }
 {TAB}				{ /* ignora los tabuladores */ }
