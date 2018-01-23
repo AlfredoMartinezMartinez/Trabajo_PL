@@ -38,39 +38,69 @@ import java_cup.runtime.*;
 %}
 
 /* Declaraciones de macros NL(nueva linea) BLANCO(espacio en blanco) y TAB(tabulador) */
-
+ID= [a-zA-Z]+[a-zA-Z0-9"_""-"]*
 NL = \n|\r|\r\n
 BLANCO = " "
 TAB = \t
-VAL = "+"|"-"
 PUNTO = "."|","|":"
-RESERVADA = undef|do|alias|if|while|unless|until|end|return|yield|not|super|"defined?"|elsif|else|case|when|for|in|rescue|ensure|class|module|redo|def|then|nil|break|self
-AGRUPACION = and|or
 OPERADOR = ".."|"..."|"+"|"-"|"*"|"/"|"%"|"**"
 ASIGNACION ="+="|"-="|"*="|"/="|"%="|"**="|"&="|"|="|"^="|"<<="|">>="|"&&="|"||="
 COMPARACION = "<=>" | ">" | ">=" | "<" | "<=" | "==" | "!=" | "===" | "=~" | "!~"
-LOGICO =  "|" | "^" | "&" | "&&" | "||"
+LOGICO =  "|" | "^" | "&" | "&&" | "||"|"and"|"or"
 CONCATENACION = "<<"| ">>"
 %%
 /* ------------------------Seccion de reglas y acciones ----------------------*/
 <YYINITIAL> {
+"undef"	{return symbol(sym.UNDEF);}
+"do"	{return symbol(sym.DO);}
+"alias"	{return symbol(sym.ALIAS);}
+"if"	{return symbol(sym.IF);}
+"while"	{return symbol(sym.WHILE);}
+"unless"	{return symbol(sym.UNLESS);}
+"until"	{return symbol(sym.UNTIL);}
+"end"	{return symbol(sym.END);}
+"return"	{return symbol(sym.RETURN);}
+"yield"	{return symbol(sym.YIELD);}
+"not"	{return symbol(sym.NOT);}
+"super"	{return symbol(sym.SUPER);}
+"defined?"	{return symbol(sym.DEFINED);}
+"elsif"	{return symbol(sym.ELSIF);}
+"else"	{return symbol(sym.ELSE);}
+"case"	{return symbol(sym.CASE);}
+"when"	{return symbol(sym.WHEN);}
+"for"	{return symbol(sym.FOR);}
+"in"	{return symbol(sym.IN);}
+"rescue"	{return symbol(sym.RESCUE);}
+"ensure"	{return symbol(sym.ENSURE);}
+"class"	{return symbol(sym.CLASS);}
+"module"	{return symbol(sym.MODULE);}
+"redo"	{return symbol(sym.REDO);}
+"def"	{return symbol(sym.DEF);}
+"then"	{return symbol(sym.THEN);}
+"nil"	{return symbol(sym.NIL);}
+"break"	{return symbol(sym.BREAK);}
+"self"	{return symbol(sym.SELF);}
+{LOGICO} {return symbol(sym.LOGICO,new String(yytext()));}
+. {return symbol(sym.PUNTO);}
+, {return symbol(sym.COMA);}
 \"[:jletterdigit:]*\" {return symbol(sym.STRING, new String(yytext()));}
-[1-9][:digit:]* 		{return symbol(sym.INT,new Integer(yytext()));}
-{PUNTO} {System.out.println("Token puntuacion <" +yytext()+ "> encontrado");}
-{RESERVADA}	{System.out.println("Token Palabra reservada <" +yytext()+ "> encontrado");}
-{AGRUPACION} {System.out.println("Token Agrupacion <" +yytext()+ "> encontrado");}
-{VAL} {System.out.println("Token valor <" +yytext()+ "> encontrado");}
-{OPERADOR} {System.out.println("Token Operador <" + yytext()+ "> encontrado");}
-{ASIGNACION} {System.out.println("Token Operador de asignacion <" +yytext()+"> encontrado");}
-{COMPARACION} {System.out.println("Token Operador de comparación <" +yytext()+"> encontrado");}
-{LOGICO} {System.out.println("Token Operador lógico <" +yytext()+"> encontrado");}
-{CONCATENACION} {System.out.println("Token Concatenación <" +yytext()+"> encontrado");}
-"(" {System.out.println("Token Apertura Paréntesis <" +yytext()+"> encontrado");}
-")" {System.out.println("Token Final Paréntesis <" +yytext()+"> encontrado");}
-"[" {System.out.println("Token Apertura Corchete <" +yytext()+"> encontrado");}
-"]" {System.out.println("Token Final Corchete <" +yytext()+"> encontrado");}
-"$" {System.out.println("Token Global <" +yytext()+"> encontrado");}
-"@" {System.out.println("Token @ <" +yytext()+"> encontrado");}
+[0-9]+ 		{return symbol(sym.INT,new Integer(yytext()));}
+[0-9]+"."([0-9]+) {return symbol(sym.DOUBLE,new Double(yytext()));}
+{ID} {return symbol(sym.ID, new String(yytext()));}
+"(" {return symbol(sym.PA);}}
+")" {return symbol(sym.PC);}}
+"[" {return symbol(sym.CA);}}
+"]" {return symbol(sym.CC);}}
+"$" {return symbol(sym.GLOBAL);}}
+"@" {return symbol(sym.ARROBA);}}
+{OPERADOR} {return symbol(sym.OPERADOR, new String(yytext()));}
+"\""~"\"" {return symbol(sym.LITERAL, new String(yytext()));}
+
+
+{ASIGNACION} {return symbol(sym.ASIGNACION, new String(yytext()));}
+{COMPARACION} {return symbol(sym.COMPARACION, new String(yytext()));}
+{CONCATENACION} {return symbol(sym.CONCATENACION, new String(yytext()));}
+
 {NL}				{ /* ignoramos los saltos de l�nea y retornos de carro */ }
 {TAB}				{ /* ignora los tabuladores */ }
 {BLANCO}			{ /* ignora los espacios en blanco */ }
