@@ -11,7 +11,6 @@ public class Reference implements ASTNode {
     this.name = name;
   }
   public Object execute (Map <String, Object> symbolTable) {
-    symbolTable.get(name);
-    return null;
+    return symbolTable.get(name);
   }
 }

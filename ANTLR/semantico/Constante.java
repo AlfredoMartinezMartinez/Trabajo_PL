@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Constante implements ASTNode {
-	Object value;
+	private Object value;
 
 	public Constante (Object value) {
 		super();
