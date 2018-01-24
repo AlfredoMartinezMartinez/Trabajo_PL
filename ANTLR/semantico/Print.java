@@ -1,4 +1,4 @@
-package.semantico
+
 
 public class Print implements ASTNode {
 	private ASTNode text;

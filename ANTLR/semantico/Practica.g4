@@ -5,16 +5,6 @@ package tools;
 import java.util.*;
 }
 @parser::members {
-  Map<String, Integer> memory = new HashMap<String, Integer>();
-    int eval(int left, char op, int right) {
-      switch ( op ) {
-        case MUL : return left * right;
-        case DIV : return left / right;
-        case PLUS : return left + right;
-        case MINUS : return left - right;	
-      }
-    return 0;
-    }
 }
 
 prog  : expression_list;
@@ -23,17 +13,17 @@ expression_list : expression_list expression terminator
                   | terminator
                   ;
 
-expression returns [ASTNode node]: rvalue
+expression returns [ASTNode node]: rvalue {$node = $rvalue.node;}
       | lvalue
       | bvalue
-      | bucle_if
+      | bucle_if {$node = $bucle_if.node;}
 	  ;
 
-rvalue: assignment {$v=$assignment.v;}
-         | plus
-		 | minus 
-		 | mul
-		 | div
+rvalue returns [ASTNode node]: assignment {$node=$assignment.node;}
+     | plus {$node = $plus.node;}
+		 | minus {$node = $minus.node;}
+		 | mul {$node = $mul.node;}
+		 | div {$node = $div.node;}
 		 ;
 
 plus returns [ASTNode node]:
@@ -46,15 +36,15 @@ mul returns [ASTNode node]:
 		 n1 = number {$node = $n1.node;} (MUL n2 = number new Multiplication{$node, $n2.node})*;
 
 div returns [ASTNode node]:
-		 n1 = number {$node = $n1.node;} (DIV n2 = number new Division{$node, $n2.node})*;		 
-         
+		 n1 = number {$node = $n1.node;} (DIV n2 = number new Division{$node, $n2.node})*;
+
 bvalue : rvalue OPCOMP rvalue ;
 
 bucle_if returns [ASTNode node]: IF expression
 			{
 				List <ASTNode> ifbody = new ArrayList <ASTNode>();
-			} 
-			THEN crlf (e1=expression_list {ifbody.add($s1.node);})* ELSE 
+			}
+			THEN crlf (e1=expression_list {ifbody.add($s1.node);})* ELSE
 			{
 				List <ASTNode> elsebody = new ArrayList <ASTNode>();
 			}
@@ -62,10 +52,10 @@ bucle_if returns [ASTNode node]: IF expression
 			{
 				$node = new If($expression.node, ifbody, elsebody);
 		 	}
-		 | IF expression 
+		 | IF expression
 			{
 				List <ASTNode> ifbody = new ArrayList <ASTNode>();
-			} 
+			}
 			crlf (e1=expression_list {ifbody.add($s1.node);})* ELSE
 			{
 				List <ASTNode> elsebody = new ArrayList <ASTNode>();
@@ -76,10 +66,10 @@ bucle_if returns [ASTNode node]: IF expression
 		 	}
 		 ;
 
-assignment : lvalue ASSIGN rvalue;
+assignment returns [ASTNode node] : lvalue ASSIGN rvalue;
 lvalue : ID ;
 number returns [ASTNode node]:
-		INT {$node = new Constante(Integer.pasrInd($INT.text));}
+		INT {$node = new Constante(Integer.parseInt($INT.text));}
 		;
 terminator : terminator SEMICOLON
            | terminator crlf
@@ -92,13 +82,8 @@ ASSIGN : '=';
 OPCOMP : '==' | '!=' | '=~' | '<=>' | '>' | '>=' | '<' | '<=' | '===' | '!~' ;
 
 
-WHILE : 'while' ;
-UNTIL : 'until' ;
-UNLESS : 'unless' ;
 IF : 'if' ;
-DO : 'do';
 THEN : 'then';
-ELSIF : 'elsif' ;
 ELSE : 'else';
 END : 'end' ;
 PLUS : '+';

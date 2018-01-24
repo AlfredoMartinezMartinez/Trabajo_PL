@@ -1,4 +1,4 @@
-package com.jpavlich.astvisualizer.nodes;
+
 
 public class Multiplication implements ASTNode {
 	private ASTNode oper1;

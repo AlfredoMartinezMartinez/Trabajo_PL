@@ -1,4 +1,4 @@
-package com.jpavlich.astvisualizer.nodes;
+
 
 public class Addition implements ASTNode {
 
