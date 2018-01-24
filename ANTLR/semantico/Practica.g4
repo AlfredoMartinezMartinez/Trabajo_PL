@@ -22,11 +22,12 @@ expression_list : expression_list expression terminator
                   | expression terminator
                   | terminator
                   ;
+
 expression returns [ASTNode node]: rvalue
       | lvalue
       | bvalue
       | bucle_if
-      | bucle_while ;
+	  ;
 
 rvalue: assignment {$v=$assignment.v;}
          | plus
@@ -39,13 +40,13 @@ plus returns [ASTNode node]:
 		 n1 = number {$node = $n1.node;} (PLUS n2 = number new Addition{$node, $n2.node})*;
 
 subsctraction returns [ASTNode node]:
-		 n1 = number {$node = $n1.node;} (PLUS n2 = number new Substract{$node, $n2.node})*;
+		 n1 = number {$node = $n1.node;} (MINUS n2 = number new Substract{$node, $n2.node})*;
 
 mul returns [ASTNode node]:
-		 n1 = number {$node = $n1.node;} (PLUS n2 = number new Multiplication{$node, $n2.node})*;
+		 n1 = number {$node = $n1.node;} (MUL n2 = number new Multiplication{$node, $n2.node})*;
 
 div returns [ASTNode node]:
-		 n1 = number {$node = $n1.node;} (PLUS n2 = number new Division{$node, $n2.node})*;		 
+		 n1 = number {$node = $n1.node;} (DIV n2 = number new Division{$node, $n2.node})*;		 
          
 bvalue : rvalue OPCOMP rvalue ;
 
