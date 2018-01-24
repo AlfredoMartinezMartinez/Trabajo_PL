@@ -7,7 +7,7 @@ grammar Practica;
 @parser::members {
 }
 
-prog  : {List<ASTNode> body = new ArrayList<ASTNode>(); Map <String, Object> symbolTable<String, Object>();} 
+prog  : {List<ASTNode> body = new ArrayList<ASTNode>(); Map <String, Object> symbolTable = new HashMap<String, Object>();} 
 	(sentence {body.add($sentence.node);})* CRLF 
 	{for (ASTNode n: body) {
 	    n.execute(symbolTable);
