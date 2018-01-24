@@ -1,9 +1,11 @@
-all:
+all: java
+	javac *.java
 
-	jflex AnalizadorLexico.flex
-	javac analex.java
-	java analex fichero.txt
+java:
+	jflex *.flex
+	cup -dump *.cup
 
 clean:
-
-	rm analex.java~ fichero.txt~
+	$(RM) *.class
+	$(RM) parser.java sym.java Yylex.java
+	$(RM) *~
