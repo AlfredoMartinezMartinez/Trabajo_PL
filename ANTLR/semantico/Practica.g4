@@ -11,55 +11,82 @@ import java.util.*;
         case MUL : return left * right;
         case DIV : return left / right;
         case PLUS : return left + right;
-        case MINUS : return left - right;
+        case MINUS : return left - right;	
       }
     return 0;
     }
 }
+
 prog  : expression_list;
 expression_list : expression_list expression terminator
                   | expression terminator
                   | terminator
                   ;
-expression : rvalue {System.out.println($rvalue.v);};
+expression returns [ASTNode node]: rvalue
       | lvalue
       | bvalue
       | bucle_if
       | bucle_while ;
-rvalue returns [int v] : assignment {$v=$assignment.v;}
-         | rvalue op rvalue  {$v = eval($rvalue.v, $op.type, $rvalue.v);}
-         | INT  {$v = $INT.int;} ;
+
+rvalue: assignment {$v=$assignment.v;}
+         | plus
+		 | minus 
+		 | mul
+		 | div
+		 ;
+
+plus returns [ASTNode node]:
+		 n1 = number {$node = $n1.node;} (PLUS n2 = number new Addition{$node, $n2.node})*;
+
+subsctraction returns [ASTNode node]:
+		 n1 = number {$node = $n1.node;} (PLUS n2 = number new Substract{$node, $n2.node})*;
+
+mul returns [ASTNode node]:
+		 n1 = number {$node = $n1.node;} (PLUS n2 = number new Multiplication{$node, $n2.node})*;
+
+div returns [ASTNode node]:
+		 n1 = number {$node = $n1.node;} (PLUS n2 = number new Division{$node, $n2.node})*;		 
          
 bvalue : rvalue OPCOMP rvalue ;
-bucle_if : IF expression THEN crlf expression_list cons_if
-		 | IF expression crlf expression_list cons_if
-		 | UNLESS expression THEN crlf expression_list cons_unless
-         | UNLESS expression crlf expression_list cons_unless
-         ;
-cons_unless : ELSE crlf expression_list crlf END
-            | crlf END
-            ;
-cons_if  : ELSIF expression THEN crlf expression_list cons_if
-		 | ELSIF expression crlf expression_list cons_if
-         | ELSE crlf expression_list END
-         | END
-         ;
-bucle_while : WHILE expression crlf DO crlf expression_list END
-	    | WHILE expression terminator
-	    | UNTIL expression crlf DO expression_list END
-	    ;
+
+bucle_if returns [ASTNode node]: IF expression
+			{
+				List <ASTNode> ifbody = new ArrayList <ASTNode>();
+			} 
+			THEN crlf (e1=expression_list {ifbody.add($s1.node);})* ELSE 
+			{
+				List <ASTNode> elsebody = new ArrayList <ASTNode>();
+			}
+			crlf (e2=expression_list {elsebody.add($s2.node);}) crlf END
+			{
+				$node = new If($expression.node, ifbody, elsebody);
+		 	}
+		 | IF expression 
+			{
+				List <ASTNode> ifbody = new ArrayList <ASTNode>();
+			} 
+			crlf (e1=expression_list {ifbody.add($s1.node);})* ELSE
+			{
+				List <ASTNode> elsebody = new ArrayList <ASTNode>();
+			}
+			crlf (e2=expression_list {elsebody.add($s2.node);})* crlf END
+			{
+				$node = new If($expression.node, ifbody, elsebody);
+		 	}
+		 ;
+
 assignment : lvalue ASSIGN rvalue;
 lvalue : ID ;
+number returns [ASTNode node]:
+		INT {$node = new Constante(Integer.pasrInd($INT.text));}
+		;
 terminator : terminator SEMICOLON
            | terminator crlf
            | SEMICOLON
            | crlf
            ;
 crlf : CRLF;
-op returns [char type] : PLUS {$op.type = '+'} 
-	| MINUS {$op.type = '-'} 
-	| DIV {$op.type = '/'} 
-	| MUL {$op.type = '*'} ;
+
 ASSIGN : '=';
 OPCOMP : '==' | '!=' | '=~' | '<=>' | '>' | '>=' | '<' | '<=' | '===' | '!~' ;
 
