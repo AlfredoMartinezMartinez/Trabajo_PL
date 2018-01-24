@@ -1,5 +1,9 @@
+import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 
-public class Multiplication implements ASTNode {
+public class Division implements ASTNode {
 	private ASTNode oper1;
 	private ASTNode oper2;
 
@@ -11,7 +15,7 @@ public class Multiplication implements ASTNode {
 
 	@Override
 	public Object execute(Map <String, Object> symbolTable) {
-		return (int)oper1.execute() / (int)oper2.execute();
+		return (int)oper1.execute(symbolTable) / (int)oper2.execute(symbolTable);
 	}
 
 }

@@ -1,3 +1,8 @@
+import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
+
 public class Assignment implements ASTNode {
   private String name;
   private ASTNode expression;

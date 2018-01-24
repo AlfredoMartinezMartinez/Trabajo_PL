@@ -1,4 +1,7 @@
-
+import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Addition implements ASTNode {
 
@@ -13,7 +16,7 @@ public class Addition implements ASTNode {
 
 	@Override
 	public Object execute(Map <String, Object> symbolTable) {
-		return (int)oper1.execute() + (int)oper2.execute();
+		return (int)oper1.execute(symbolTable) + (int)oper2.execute(symbolTable);
 	}
 
 }
