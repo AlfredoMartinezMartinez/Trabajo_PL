@@ -3,7 +3,7 @@ all: java
 
 java:
 	jflex *.flex
-	cup -dump *.cup
+	cup *.cup
 
 clean:
 	$(RM) *.class

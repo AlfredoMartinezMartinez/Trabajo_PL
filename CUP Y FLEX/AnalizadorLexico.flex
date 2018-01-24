@@ -39,15 +39,15 @@ import java_cup.runtime.*;
 
 /* Declaraciones de macros NL(nueva linea) BLANCO(espacio en blanco) y TAB(tabulador) */
 ID= [a-zA-Z]+[a-zA-Z0-9"_""-"]*
-NL = \n|\r|\r\n
+NL = \n|\r;
 BLANCO = " "
 TAB = \t
-PUNTO = "."|","|":"
-OPERADOR = ".."|"..."|"+"|"-"|"*"|"/"|"%"|"**"
-ASIGNACION ="+="|"-="|"*="|"/="|"%="|"**="|"&="|"|="|"^="|"<<="|">>="|"&&="|"||="
-COMPARACION = "<=>" | ">" | ">=" | "<" | "<=" | "==" | "!=" | "===" | "=~" | "!~"
-LOGICO =  "|" | "^" | "&" | "&&" | "||"|"and"|"or"
-CONCATENACION = "<<"| ">>"
+PUNTO = "."|","|":";
+OPERADOR = ".."|"..."|"+"|"-"|"*"|"/"|"%"|"**";
+ASIGNACION ="+="|"-="|"*="|"/="|"%="|"**="|"&="|"|="|"^="|"<<="|">>="|"&&="|"||="|"=";
+COMPARACION = "<=>" | ">" | ">=" | "<" | "<=" | "==" | "!=" | "===" | "=~" | "!~";
+LOGICO =  "|" | "^" | "&" | "&&" | "||"|"and"|"or";
+CONCATENACION = "<<"| ">>";
 %%
 /* ------------------------Seccion de reglas y acciones ----------------------*/
 <YYINITIAL> {
@@ -87,21 +87,21 @@ CONCATENACION = "<<"| ">>"
 [0-9]+ 		{return symbol(sym.INT,new Integer(yytext()));}
 [0-9]+"."([0-9]+) {return symbol(sym.DOUBLE,new Double(yytext()));}
 {ID} {return symbol(sym.ID, new String(yytext()));}
-"(" {return symbol(sym.PA);}}
-")" {return symbol(sym.PC);}}
-"[" {return symbol(sym.CA);}}
-"]" {return symbol(sym.CC);}}
-"$" {return symbol(sym.GLOBAL);}}
-"@" {return symbol(sym.ARROBA);}}
+"(" {return symbol(sym.PA);}
+")" {return symbol(sym.PC);}
+"[" {return symbol(sym.CA);}
+"]" {return symbol(sym.CC);}
+"$" {return symbol(sym.GLOBAL);}
+"@" {return symbol(sym.ARROBA);}
 {OPERADOR} {return symbol(sym.OPERADOR, new String(yytext()));}
 "\""~"\"" {return symbol(sym.LITERAL, new String(yytext()));}
 
-
+; {return symbol(sym.SEMICOLON);}
 {ASIGNACION} {return symbol(sym.ASIGNACION, new String(yytext()));}
 {COMPARACION} {return symbol(sym.COMPARACION, new String(yytext()));}
 {CONCATENACION} {return symbol(sym.CONCATENACION, new String(yytext()));}
 
-{NL}				{ /* ignoramos los saltos de l�nea y retornos de carro */ }
+{NL}				{ return symbol(sym.CRLF); }
 {TAB}				{ /* ignora los tabuladores */ }
 {BLANCO}			{ /* ignora los espacios en blanco */ }
 /* Con el inicio de las comillas, hacemos {yybegin(STRING);}

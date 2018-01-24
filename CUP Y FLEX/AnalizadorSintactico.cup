@@ -29,49 +29,56 @@ parser code {:
 /*­­­ Declaración de la lista de símbolos de la gramática ­­­­­*/
 
 //poner tambien el tipo de cada terminal
+
+/*No usados
+,WHEN,YIELD,CASE,DOUBLE,PA,PC,FOR,NOT,DEFINED,NIL,IN,ARROBA,CLASS,CA,CC
+,RETURN,SUPER,SELF,COMA,GLOBAL,LOGICO,BREAK,UNDEF,REDO,MODULE,LITERAL
+,OPERADOR,PUNTO,CONCATENACION,STRING,DEF,ALIAS,ENSURE,
+RESCUE
+
+
+*/
 /* Produciones de flujo normal */
-terminal  UNDEF,DO,ALIAS,IF,WHILE,UNLESS,UNTIL,END,RETURN,YIELD,NOT,SUPER,DEFINED,ELSIF,ELSE,CASE,WHEN,FOR,IN,
-RESCUE,ENSURE,CLASS,MODULE,REDO,DEF,THEN,NIL,BREAK,SELF,LOGICO,PUNTO,COMA,STRING,INT,DOUBLE,
-ID,PA,PC,CA,CC,GLOBAL,ARROBA,OPERADOR,LITERAL,ASIGNACION,COMPARACION,CONCATENACION;
+terminal  DO,IF,WHILE,UNLESS,UNTIL,END,ELSIF,ELSE,THEN,INT,
+ID,ASIGNACION,COMPARACION,SEMICOLON,CRLF;
 //aqui deberemos poner el tipo de objeto
 non terminal prog,expression_list,expression,rvalue,bvalue,bucle_if,cons_unless,cons_if,bucle_while,
-assignment,lvalue,terminator,crlf,op;
+assignment,lvalue,terminator,op;
 
 /* ­­­­­­­­­­­­­­ Declaración de la gramática  ­­­­­­­­­­­*/
 prog ::= expression_list;
 
-expression_list::= expression_list expression terminator|
-                  expression terminator|
-                  terminator | ;
+
+
+expression_list::= expression terminator expression_list|
+                  expression terminator| terminator;
+
 expression ::= rvalue |
               bvalue|
               bucle_if|
               bucle_while;
 rvalue ::= assignment | rvalue op rvalue | INT;
 
-bvalue ::= rvalue OPCOMP rvalue;
+bvalue ::= rvalue COMPARACION rvalue;
 
-bucle_if ::= IF expression THEN crlf expression_list cons_if
-		 | IF expression crlf expression_list cons_if
-		 | UNLESS expression THEN crlf expression_list cons_unless
-         | UNLESS expression crlf expression_list cons_unless
+bucle_if ::= IF expression THEN CRLF expression_list cons_if
+		 | IF expression CRLF expression_list cons_if
+		 | UNLESS expression THEN CRLF expression_list cons_unless
+         | UNLESS expression CRLF expression_list cons_unless
          ;
-cons_unless ::= ELSE crlf expression_list crlf END
-            | crlf END
+cons_unless ::= ELSE CRLF expression_list CRLF END
+            | CRLF END
             ;
-cons_if  ::= ELSIF expression THEN crlf expression_list cons_if
-		 | ELSIF expression crlf expression_list cons_if
-         | ELSE crlf expression_list END
+cons_if  ::= ELSIF expression THEN CRLF expression_list cons_if
+		 | ELSIF expression CRLF expression_list cons_if
+         | ELSE CRLF expression_list END
          | END
          ;
-bucle_while ::= WHILE expression crlf DO crlf expression_list END
+bucle_while ::= WHILE expression CRLF DO CRLF expression_list END
 	    | WHILE expression terminator
-	    | UNTIL expression crlf DO expression_list END
+	    | UNTIL expression CRLF DO expression_list END
 	    ;
-assignment ::= lvalue ASSIGN rvalue;
+assignment ::= lvalue ASIGNACION rvalue;
 lvalue ::= ID ;
-terminator ::= terminator SEMICOLON
-           | terminator crlf
-           | SEMICOLON
-           | crlf
-           ;
+
+terminator ::= SEMICOLON terminator| CRLF terminator | SEMICOLON | CRLF;
