@@ -1,0 +1,4 @@
+Analizador lexico, sintactico y semantico de una parte del lenguaje de programacion Ruby.
+Herramientas empleadas en la construccion: 
+	- ANTLR4 (Analisis Descendente)
+	-Jflex y Cup (Analisis Ascendente)
