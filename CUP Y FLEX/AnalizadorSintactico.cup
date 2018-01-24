@@ -45,13 +45,15 @@ ID,ASIGNACION,COMPARACION,SEMICOLON,CRLF;
 non terminal prog,expression_list,expression,rvalue,bvalue,bucle_if,cons_unless,cons_if,bucle_while,
 assignment,lvalue,terminator,op;
 
+
+precedence left SEMICOLON,CRLF;
 /* ­­­­­­­­­­­­­­ Declaración de la gramática  ­­­­­­­­­­­*/
 prog ::= expression_list;
 
 
 
 expression_list::= expression terminator expression_list|
-                  expression terminator| terminator;
+                  expression terminator;
 
 expression ::= rvalue |
               bvalue|
