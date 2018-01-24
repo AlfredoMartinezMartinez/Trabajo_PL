@@ -7,19 +7,20 @@ import java.util.*;
 @parser::members {
 }
 
-prog  : expression_list;
-expression_list : expression_list expression terminator
-                  | expression terminator
-                  | terminator
-                  ;
+prog  : {List<ASTNode> body = new ArrayList<ASTNode>();
+          Map <String, Object> symbolTable<String, Object>();} expression terminator {$body.add($expresion.node)}
+          { for ASTNode n: body) {
+            n.execute(symbolTable);
+          }};
 
-expression returns [ASTNode node]: rvalue {$node = $rvalue.node;}
-      | lvalue
-      | bvalue
+expression returns [ASTNode node]:
+      | rvalue {$node = $rvalue.node;}
       | bucle_if {$node = $bucle_if.node;}
 	  ;
 
-rvalue returns [ASTNode node]: assignment {$node=$assignment.node;}
+rvalue returns [ASTNode node]: declaration {$node=$declaration.node;}
+     | assignment {$node=$assignment.node;}
+     | reference {$node=$reference.node;}
      | plus {$node = $plus.node;}
 		 | minus {$node = $minus.node;}
 		 | mul {$node = $mul.node;}
@@ -38,17 +39,15 @@ mul returns [ASTNode node]:
 div returns [ASTNode node]:
 		 n1 = number {$node = $n1.node;} (DIV n2 = number new Division{$node, $n2.node})*;
 
-bvalue : rvalue OPCOMP rvalue ;
-
 bucle_if returns [ASTNode node]: IF expression
 			{
 				List <ASTNode> ifbody = new ArrayList <ASTNode>();
 			}
-			THEN crlf (e1=expression_list {ifbody.add($s1.node);})* ELSE
+			THEN crlf (e1=expression {ifbody.add($e1.node);})* ELSE
 			{
 				List <ASTNode> elsebody = new ArrayList <ASTNode>();
 			}
-			crlf (e2=expression_list {elsebody.add($s2.node);}) crlf END
+			crlf (e2=expression {elsebody.add($e2.node);}) crlf END
 			{
 				$node = new If($expression.node, ifbody, elsebody);
 		 	}
@@ -56,18 +55,18 @@ bucle_if returns [ASTNode node]: IF expression
 			{
 				List <ASTNode> ifbody = new ArrayList <ASTNode>();
 			}
-			crlf (e1=expression_list {ifbody.add($s1.node);})* ELSE
+			crlf (e1=expression {ifbody.add($e1.node);})* ELSE
 			{
 				List <ASTNode> elsebody = new ArrayList <ASTNode>();
 			}
-			crlf (e2=expression_list {elsebody.add($s2.node);})* crlf END
+			crlf (e2=expression {elsebody.add($e2.node);})* crlf END
 			{
 				$node = new If($expression.node, ifbody, elsebody);
 		 	}
 		 ;
 
-assignment returns [ASTNode node] : lvalue ASSIGN rvalue;
-lvalue : ID ;
+assignment returns [ASTNode node] : ID ASSIGN rvalue {$node = new Assignment($ID.text,$rvalue.node);};
+reference returns [ASTNode node] : ID {$node = new Reference($ID.text);}
 number returns [ASTNode node]:
 		INT {$node = new Constante(Integer.parseInt($INT.text));}
 		;

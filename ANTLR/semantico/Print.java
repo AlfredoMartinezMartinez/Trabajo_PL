@@ -7,7 +7,7 @@ public class Print implements ASTNode {
 		this.text = text;
 	}
 
-	public Object execute() {
+	public Object execute(Map <String, Object> symbolTable) {
 		System.out.println(text);
 		return null;
 	}

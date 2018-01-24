@@ -1,12 +1,12 @@
 public class Constante implements ASTNode {
-	int value;
+	Object value;
 
-	public Constante (int value) {
+	public Constante (Object value) {
 		super();
 		this.value = value;
 	}
 
 	@Override
-	public Object execute() {
+	public Object execute(Map <String, Object> symbolTable) {
 		return value;
 	}

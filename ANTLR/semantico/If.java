@@ -12,14 +12,14 @@ public class If implements ASTNode {
 		this.elsebody = elsebody;
 	}
 
-	public Object execute() {
-		if ((boolean)conditional.execute()) {
+	public Object execute(Map <String, Object> symbolTable) {
+		if ((boolean)conditional.execute(symbolTable)) {
 			for(ASTNode n : ifbody) {
-				n.execute();
+				n.execute(symbolTable);
 			}
 		} else {
 			for(ASTNode n : elsebody) {
-				n.execute();
+				n.execute(symbolTable);
 			}
 		}
 		return null;

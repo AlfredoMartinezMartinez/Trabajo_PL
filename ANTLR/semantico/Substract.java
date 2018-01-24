@@ -12,7 +12,7 @@ public class Addition implements ASTNode {
 	}
 
 	@Override
-	public Object execute() {
+	public Object execute(Map <String, Object> symbolTable) {
 		return (int)oper1.execute() - (int)oper2.execute();
 	}
 
