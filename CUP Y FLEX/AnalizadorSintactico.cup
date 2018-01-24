@@ -1,0 +1,77 @@
+/*­­­­Sección de declaraciones package e imports­­­­­­­­­*/
+import java_cup.runtime.*;
+/*­­­­ Sección componentes de código de usuario ­­­­*/
+parser code {:
+    public void report_error(String message, Object info) {
+       	StringBuffer m = new StringBuffer("Error");
+		System.out.println("Mensaje: "+message);
+		System.out.println("info: "+info.toString());
+		if(info instanceof java_cup.runtime.Symbol) {
+			java_cup.runtime.Symbol s=((java_cup.runtime.Symbol)info);
+			/* Comprueba si el numero de línea es mayor o igual que cero */
+			if(s.left >= 0) {
+				m.append(" en linea "+(s.left+1));
+				/*Comprueba si el numero de columna es mayoro igual que cero */
+				if (s.right >= 0)
+					m.append(", y columna "+(s.right+1));
+			}
+		}
+		m.append(" : "+message);
+		System.err.println(m);
+    }
+    public void report_fatal_error(String message, Object info) {
+       	report_error(message, info);
+		System.exit(1);
+    }
+
+
+:};
+/*­­­ Declaración de la lista de símbolos de la gramática ­­­­­*/
+
+//poner tambien el tipo de cada terminal
+/* Produciones de flujo normal */
+terminal  UNDEF,DO,ALIAS,IF,WHILE,UNLESS,UNTIL,END,RETURN,YIELD,NOT,SUPER,DEFINED,ELSIF,ELSE,CASE,WHEN,FOR,IN,
+RESCUE,ENSURE,CLASS,MODULE,REDO,DEF,THEN,NIL,BREAK,SELF,LOGICO,PUNTO,COMA,STRING,INT,DOUBLE,
+ID,PA,PC,CA,CC,GLOBAL,ARROBA,OPERADOR,LITERAL,ASIGNACION,COMPARACION,CONCATENACION;
+//aqui deberemos poner el tipo de objeto
+non terminal prog,expression_list,expression,rvalue,bvalue,bucle_if,cons_unless,cons_if,bucle_while,
+assignment,lvalue,terminator,crlf,op;
+
+/* ­­­­­­­­­­­­­­ Declaración de la gramática  ­­­­­­­­­­­*/
+prog ::= expression_list;
+
+expression_list::= expression_list expression terminator|
+                  expression terminator|
+                  terminator | ;
+expression ::= rvalue |
+              bvalue|
+              bucle_if|
+              bucle_while;
+rvalue ::= assignment | rvalue op rvalue | INT;
+
+bvalue ::= rvalue OPCOMP rvalue;
+
+bucle_if ::= IF expression THEN crlf expression_list cons_if
+		 | IF expression crlf expression_list cons_if
+		 | UNLESS expression THEN crlf expression_list cons_unless
+         | UNLESS expression crlf expression_list cons_unless
+         ;
+cons_unless ::= ELSE crlf expression_list crlf END
+            | crlf END
+            ;
+cons_if  ::= ELSIF expression THEN crlf expression_list cons_if
+		 | ELSIF expression crlf expression_list cons_if
+         | ELSE crlf expression_list END
+         | END
+         ;
+bucle_while ::= WHILE expression crlf DO crlf expression_list END
+	    | WHILE expression terminator
+	    | UNTIL expression crlf DO expression_list END
+	    ;
+assignment ::= lvalue ASSIGN rvalue;
+lvalue ::= ID ;
+terminator ::= terminator SEMICOLON
+           | terminator crlf
+           | SEMICOLON
+           | crlf
+           ;
