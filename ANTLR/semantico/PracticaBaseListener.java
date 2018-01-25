@@ -1,5 +1,8 @@
 // Generated from Practica.g4 by ANTLR 4.7
 
+	import java.util.*;
+
+
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -27,13 +30,13 @@ public class PracticaBaseListener implements PracticaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpression_list(PracticaParser.Expression_listContext ctx) { }
+	@Override public void enterSentence(PracticaParser.SentenceContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExpression_list(PracticaParser.Expression_listContext ctx) { }
+	@Override public void exitSentence(PracticaParser.SentenceContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -51,25 +54,37 @@ public class PracticaBaseListener implements PracticaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDiv(PracticaParser.DivContext ctx) { }
+	@Override public void enterPrint(PracticaParser.PrintContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDiv(PracticaParser.DivContext ctx) { }
+	@Override public void exitPrint(PracticaParser.PrintContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterComp(PracticaParser.CompContext ctx) { }
+	@Override public void enterRvalue(PracticaParser.RvalueContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitComp(PracticaParser.CompContext ctx) { }
+	@Override public void exitRvalue(PracticaParser.RvalueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPlus(PracticaParser.PlusContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPlus(PracticaParser.PlusContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -99,49 +114,13 @@ public class PracticaBaseListener implements PracticaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterId(PracticaParser.IdContext ctx) { }
+	@Override public void enterDiv(PracticaParser.DivContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitId(PracticaParser.IdContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterInt(PracticaParser.IntContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitInt(PracticaParser.IntContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterPlus(PracticaParser.PlusContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitPlus(PracticaParser.PlusContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterAssign(PracticaParser.AssignContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitAssign(PracticaParser.AssignContext ctx) { }
+	@Override public void exitDiv(PracticaParser.DivContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -159,42 +138,6 @@ public class PracticaBaseListener implements PracticaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCons_unless(PracticaParser.Cons_unlessContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitCons_unless(PracticaParser.Cons_unlessContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterCons_if(PracticaParser.Cons_ifContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitCons_if(PracticaParser.Cons_ifContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterBucle_while(PracticaParser.Bucle_whileContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBucle_while(PracticaParser.Bucle_whileContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterAssignment(PracticaParser.AssignmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -207,37 +150,25 @@ public class PracticaBaseListener implements PracticaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLvalue(PracticaParser.LvalueContext ctx) { }
+	@Override public void enterReference(PracticaParser.ReferenceContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLvalue(PracticaParser.LvalueContext ctx) { }
+	@Override public void exitReference(PracticaParser.ReferenceContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTerminator(PracticaParser.TerminatorContext ctx) { }
+	@Override public void enterNumber(PracticaParser.NumberContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTerminator(PracticaParser.TerminatorContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterCrlf(PracticaParser.CrlfContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitCrlf(PracticaParser.CrlfContext ctx) { }
+	@Override public void exitNumber(PracticaParser.NumberContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

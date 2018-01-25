@@ -1,4 +1,4 @@
-// Generated from Practica.g4 by ANTLR 4.7.1
+// Generated from Practica.g4 by ANTLR 4.7
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -37,15 +37,101 @@ public interface PracticaListener extends ParseTreeListener {
 	 */
 	void exitExpression(PracticaParser.ExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PracticaParser#rvalue}.
+	 * Enter a parse tree produced by the {@code div}
+	 * labeled alternative in {@link PracticaParser#rvalue}.
 	 * @param ctx the parse tree
 	 */
-	void enterRvalue(PracticaParser.RvalueContext ctx);
+	void enterDiv(PracticaParser.DivContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link PracticaParser#rvalue}.
+	 * Exit a parse tree produced by the {@code div}
+	 * labeled alternative in {@link PracticaParser#rvalue}.
 	 * @param ctx the parse tree
 	 */
-	void exitRvalue(PracticaParser.RvalueContext ctx);
+	void exitDiv(PracticaParser.DivContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code comp}
+	 * labeled alternative in {@link PracticaParser#rvalue}.
+	 * @param ctx the parse tree
+	 */
+	void enterComp(PracticaParser.CompContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code comp}
+	 * labeled alternative in {@link PracticaParser#rvalue}.
+	 * @param ctx the parse tree
+	 */
+	void exitComp(PracticaParser.CompContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code minus}
+	 * labeled alternative in {@link PracticaParser#rvalue}.
+	 * @param ctx the parse tree
+	 */
+	void enterMinus(PracticaParser.MinusContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code minus}
+	 * labeled alternative in {@link PracticaParser#rvalue}.
+	 * @param ctx the parse tree
+	 */
+	void exitMinus(PracticaParser.MinusContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code mul}
+	 * labeled alternative in {@link PracticaParser#rvalue}.
+	 * @param ctx the parse tree
+	 */
+	void enterMul(PracticaParser.MulContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code mul}
+	 * labeled alternative in {@link PracticaParser#rvalue}.
+	 * @param ctx the parse tree
+	 */
+	void exitMul(PracticaParser.MulContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code id}
+	 * labeled alternative in {@link PracticaParser#rvalue}.
+	 * @param ctx the parse tree
+	 */
+	void enterId(PracticaParser.IdContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code id}
+	 * labeled alternative in {@link PracticaParser#rvalue}.
+	 * @param ctx the parse tree
+	 */
+	void exitId(PracticaParser.IdContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code int}
+	 * labeled alternative in {@link PracticaParser#rvalue}.
+	 * @param ctx the parse tree
+	 */
+	void enterInt(PracticaParser.IntContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code int}
+	 * labeled alternative in {@link PracticaParser#rvalue}.
+	 * @param ctx the parse tree
+	 */
+	void exitInt(PracticaParser.IntContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code plus}
+	 * labeled alternative in {@link PracticaParser#rvalue}.
+	 * @param ctx the parse tree
+	 */
+	void enterPlus(PracticaParser.PlusContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code plus}
+	 * labeled alternative in {@link PracticaParser#rvalue}.
+	 * @param ctx the parse tree
+	 */
+	void exitPlus(PracticaParser.PlusContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code assign}
+	 * labeled alternative in {@link PracticaParser#rvalue}.
+	 * @param ctx the parse tree
+	 */
+	void enterAssign(PracticaParser.AssignContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code assign}
+	 * labeled alternative in {@link PracticaParser#rvalue}.
+	 * @param ctx the parse tree
+	 */
+	void exitAssign(PracticaParser.AssignContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PracticaParser#bucle_if}.
 	 * @param ctx the parse tree

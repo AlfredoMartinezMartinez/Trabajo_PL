@@ -8,16 +8,15 @@ expression : rvalue
 			|bucle_if
 			|bucle_while
 			;
-rvalue : assignment #assign
-         | rvalue OPCOMP rvalue #comp
-         | rvalue MUL rvalue #mul
-         | rvalue DIV rvalue #div
-         | rvalue PLUS rvalue #plus
-         | rvalue MINUS rvalue #minus
-         | lvalue #id
-         | INT #int
-         //| FLOAT #float
-         ;
+rvalue : assignment 
+         | rvalue OPCOMP rvalue
+         | rvalue MUL rvalue 
+         | rvalue DIV rvalue 
+         | rvalue PLUS rvalue 
+         | rvalue MINUS rvalue
+         | lvalue
+         | INT
+         | FLOAT ;
 
 bucle_if : IF expression THEN crlf expression_list cons_if 
 		 | IF expression crlf expression_list cons_if 

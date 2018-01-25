@@ -19,6 +19,7 @@ ID=18
 SEMICOLON=19
 CRLF=20
 WS=21
+COMMENT=22
 '='=1
 'while'=3
 'until'=4
