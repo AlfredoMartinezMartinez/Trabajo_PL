@@ -27,15 +27,65 @@ public interface PracticaListener extends ParseTreeListener {
 	 */
 	void exitExpression_list(PracticaParser.Expression_listContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PracticaParser#expression}.
+	 * Enter a parse tree produced by the {@code rvalor}
+	 * labeled alternative in {@link PracticaParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpression(PracticaParser.ExpressionContext ctx);
+	void enterRvalor(PracticaParser.RvalorContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link PracticaParser#expression}.
+	 * Exit a parse tree produced by the {@code rvalor}
+	 * labeled alternative in {@link PracticaParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpression(PracticaParser.ExpressionContext ctx);
+	void exitRvalor(PracticaParser.RvalorContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code b_if}
+	 * labeled alternative in {@link PracticaParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterB_if(PracticaParser.B_ifContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code b_if}
+	 * labeled alternative in {@link PracticaParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitB_if(PracticaParser.B_ifContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code b_while}
+	 * labeled alternative in {@link PracticaParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterB_while(PracticaParser.B_whileContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code b_while}
+	 * labeled alternative in {@link PracticaParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitB_while(PracticaParser.B_whileContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code booleano}
+	 * labeled alternative in {@link PracticaParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterBooleano(PracticaParser.BooleanoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code booleano}
+	 * labeled alternative in {@link PracticaParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitBooleano(PracticaParser.BooleanoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code imprime}
+	 * labeled alternative in {@link PracticaParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterImprime(PracticaParser.ImprimeContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code imprime}
+	 * labeled alternative in {@link PracticaParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitImprime(PracticaParser.ImprimeContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code div}
 	 * labeled alternative in {@link PracticaParser#rvalue}.
@@ -183,6 +233,42 @@ public interface PracticaListener extends ParseTreeListener {
 	 */
 	void exitAssignment(PracticaParser.AssignmentContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code impID}
+	 * labeled alternative in {@link PracticaParser#print}.
+	 * @param ctx the parse tree
+	 */
+	void enterImpID(PracticaParser.ImpIDContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code impID}
+	 * labeled alternative in {@link PracticaParser#print}.
+	 * @param ctx the parse tree
+	 */
+	void exitImpID(PracticaParser.ImpIDContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code impNum}
+	 * labeled alternative in {@link PracticaParser#print}.
+	 * @param ctx the parse tree
+	 */
+	void enterImpNum(PracticaParser.ImpNumContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code impNum}
+	 * labeled alternative in {@link PracticaParser#print}.
+	 * @param ctx the parse tree
+	 */
+	void exitImpNum(PracticaParser.ImpNumContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code impString}
+	 * labeled alternative in {@link PracticaParser#print}.
+	 * @param ctx the parse tree
+	 */
+	void enterImpString(PracticaParser.ImpStringContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code impString}
+	 * labeled alternative in {@link PracticaParser#print}.
+	 * @param ctx the parse tree
+	 */
+	void exitImpString(PracticaParser.ImpStringContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PracticaParser#lvalue}.
 	 * @param ctx the parse tree
 	 */
@@ -192,6 +278,16 @@ public interface PracticaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitLvalue(PracticaParser.LvalueContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PracticaParser#string}.
+	 * @param ctx the parse tree
+	 */
+	void enterString(PracticaParser.StringContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PracticaParser#string}.
+	 * @param ctx the parse tree
+	 */
+	void exitString(PracticaParser.StringContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PracticaParser#terminator}.
 	 * @param ctx the parse tree

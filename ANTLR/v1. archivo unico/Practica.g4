@@ -4,18 +4,20 @@ expression_list : expression_list expression terminator
                   | expression terminator 
                   | terminator
                   ;
-expression : rvalue
-			|bucle_if
-			|bucle_while
+expression : rvalue			#rvalor	
+			|bucle_if		#b_if	
+			|bucle_while	#b_while	
+			|BOOLEAN		#booleano	
+			|print 			#imprime	
 			;
-rvalue : assignment #assign
+rvalue : assignment 			#assign
          | rvalue OPCOMP rvalue #comp
-         | rvalue MUL rvalue #mul
-         | rvalue DIV rvalue #div
-         | rvalue PLUS rvalue #plus
-         | rvalue MINUS rvalue #minus
-         | lvalue #id
-         | INT #int
+         | rvalue MUL rvalue	#mul
+         | rvalue DIV rvalue 	#div
+         | rvalue PLUS rvalue 	#plus
+         | rvalue MINUS rvalue	#minus
+         | lvalue 				#id
+         | INT 					#int
          //| FLOAT #float
          ;
 
@@ -37,7 +39,12 @@ bucle_while : WHILE expression crlf DO crlf expression_list END
 	    | UNTIL expression crlf DO expression_list END
 	    ;
 assignment : lvalue ASSIGN rvalue;
+print : PRINT lvalue #impID
+	  | PRINT rvalue #impNum
+	  | PRINT string #impString
+	  ;
 lvalue : ID ;
+string : STRING ;
 terminator : terminator SEMICOLON
            | terminator crlf
            | SEMICOLON
@@ -57,11 +64,16 @@ THEN : 'then';
 ELSIF : 'elsif' ;
 ELSE : 'else';
 END : 'end' ;
+
 PLUS : '+';
 MINUS : '-';
 MUL : '*';
 DIV : '/';
 
+PRINT : 'puts';
+BOOLEAN : 'true' | 'false' ;
+
+STRING : '"' (~'"' | '"')* '"' ;
 INT : [0-9]+;
 FLOAT : [0-9]*'.'[0-9]+;
 ID : [a-zA-Z_][a-zA-Z0-9_]*;

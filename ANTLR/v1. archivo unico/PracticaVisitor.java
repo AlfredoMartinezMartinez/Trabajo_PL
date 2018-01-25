@@ -22,11 +22,40 @@ public interface PracticaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExpression_list(PracticaParser.Expression_listContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PracticaParser#expression}.
+	 * Visit a parse tree produced by the {@code rvalor}
+	 * labeled alternative in {@link PracticaParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpression(PracticaParser.ExpressionContext ctx);
+	T visitRvalor(PracticaParser.RvalorContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code b_if}
+	 * labeled alternative in {@link PracticaParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitB_if(PracticaParser.B_ifContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code b_while}
+	 * labeled alternative in {@link PracticaParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitB_while(PracticaParser.B_whileContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code booleano}
+	 * labeled alternative in {@link PracticaParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBooleano(PracticaParser.BooleanoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code imprime}
+	 * labeled alternative in {@link PracticaParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitImprime(PracticaParser.ImprimeContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code div}
 	 * labeled alternative in {@link PracticaParser#rvalue}.
@@ -114,11 +143,38 @@ public interface PracticaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAssignment(PracticaParser.AssignmentContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code impID}
+	 * labeled alternative in {@link PracticaParser#print}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitImpID(PracticaParser.ImpIDContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code impNum}
+	 * labeled alternative in {@link PracticaParser#print}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitImpNum(PracticaParser.ImpNumContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code impString}
+	 * labeled alternative in {@link PracticaParser#print}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitImpString(PracticaParser.ImpStringContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link PracticaParser#lvalue}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitLvalue(PracticaParser.LvalueContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PracticaParser#string}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitString(PracticaParser.StringContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PracticaParser#terminator}.
 	 * @param ctx the parse tree
