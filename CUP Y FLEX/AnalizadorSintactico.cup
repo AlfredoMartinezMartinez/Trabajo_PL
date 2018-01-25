@@ -11,7 +11,7 @@ parser code {:
 			/* Comprueba si el numero de línea es mayor o igual que cero */
 			if(s.left >= 0) {
 				m.append(" en linea "+(s.left+1));
-				/*Comprueba si el numero de columna es mayoro igual que cero */
+				/*Comprueba si el numero de columna es mayor o igual que cero */
 				if (s.right >= 0)
 					m.append(", y columna "+(s.right+1));
 			}
@@ -23,7 +23,6 @@ parser code {:
        	report_error(message, info);
 		System.exit(1);
     }
-
 
 :};
 /*­­­ Declaración de la lista de símbolos de la gramática ­­­­­*/
@@ -39,49 +38,49 @@ RESCUE
 
 */
 /* Produciones de flujo normal */
-terminal  DO,IF,WHILE,UNLESS,UNTIL,END,ELSIF,ELSE,THEN,INT,
-ID,ASIGNACION,COMPARACION,SEMICOLON,CRLF,OPERADOR;
+terminal  IF,END,ELSE,THEN,INT,ID,ASIGNACION,SEMICOLON,CRLF,PLUS,MINUS,MUL,DIV,PUTS,BOOLEAN;
 //aqui deberemos poner el tipo de objeto
-non terminal prog,expression_list,expression,rvalue,bvalue,bucle_if,cons_unless,cons_if,bucle_while,
-assignment,lvalue,terminator,op;
+non terminal prog,expression_list,sentence,expression,puts,rvalue,plus,minus,mul,div,bucle_if,
+assignment,reference,number,terminator;
 
 
-precedence left SEMICOLON,CRLF,OPERADOR;
+precedence left SEMICOLON,CRLF;
 /* ­­­­­­­­­­­­­­ Declaración de la gramática  ­­­­­­­­­­­*/
 prog ::= expression_list;
 
+expression_list::= sentence terminator expression_list|
+                  sentence terminator;
 
+sentence ::= puts
+            | assignment
+            | reference
+            | rvalue
+            | bucle_if;
 
-expression_list::= expression terminator expression_list|
-                  expression terminator;
+expression ::= BOOLEAN;
 
-expression ::= rvalue |
-              bvalue|
-              bucle_if|
-              bucle_while;
-rvalue ::= assignment | rvalue op rvalue | INT;
+puts ::= PUTS expression;
 
-bvalue ::= rvalue COMPARACION rvalue;
+rvalue ::= plus
+          | minus
+          | mul
+          | div
+          | number;
 
-bucle_if ::= IF expression THEN CRLF expression_list cons_if
-		 | IF expression CRLF expression_list cons_if
-		 | UNLESS expression THEN CRLF expression_list cons_unless
-         | UNLESS expression CRLF expression_list cons_unless
-         ;
-cons_unless ::= ELSE CRLF expression_list CRLF END
-            | CRLF END
-            ;
-cons_if  ::= ELSIF expression THEN CRLF expression_list cons_if
-		 | ELSIF expression CRLF expression_list cons_if
-         | ELSE CRLF expression_list END
-         | END
-         ;
-bucle_while ::= WHILE expression CRLF DO CRLF expression_list END
-	    | WHILE expression terminator
-	    | UNTIL expression CRLF DO expression_list END
-	    ;
-assignment ::= lvalue ASIGNACION rvalue;
-lvalue ::= ID ;
+plus ::= number PLUS number;
+
+minus ::= number MINUS number;
+
+mul ::= number MUL number;
+
+div ::= number DIV number;
+
+bucle_if ::= IF expression THEN CRLF expression_list ELSE CRLF expression_list END;
+
+assignment ::= ID ASIGNACION rvalue;
+
+reference ::= ID;
+
+number ::= INT;
 
 terminator ::= SEMICOLON terminator| CRLF terminator | SEMICOLON | CRLF;
-op::= OPERADOR;

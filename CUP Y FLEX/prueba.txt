@@ -1,4 +1,4 @@
-if 6   < 5 then
+if true then
 6
 else
 4

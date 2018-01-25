@@ -43,7 +43,7 @@ NL = \n|\r;
 BLANCO = " "
 TAB = \t
 PUNTO = "."|","|":";
-OPERADOR = ".."|"..."|"+"|"-"|"*"|"/"|"%"|"**";
+//OPERADOR = ".."|"..."|"+"|"-"|"*"|"/"|"%"|"**";
 ASIGNACION ="+="|"-="|"*="|"/="|"%="|"**="|"&="|"|="|"^="|"<<="|">>="|"&&="|"||="|"=";
 COMPARACION =  > | >= | < | <= | == | !=;
 LOGICO =  "|" | "^" | "&" | "&&" | "||"|"and"|"or";
@@ -52,20 +52,22 @@ CONCATENACION = "<<"| ">>";
 /* ------------------------Seccion de reglas y acciones ----------------------*/
 <YYINITIAL> {
 //"undef"	{return symbol(sym.UNDEF);}
-"do"	{return symbol(sym.DO);}
+//"do"	{return symbol(sym.DO);}
 //"alias"	{return symbol(sym.ALIAS);}
 "if"	{return symbol(sym.IF);}
-"while"	{return symbol(sym.WHILE);}
-"unless"	{return symbol(sym.UNLESS);}
-"until"	{return symbol(sym.UNTIL);}
+//"while"	{return symbol(sym.WHILE);}
+//"unless"	{return symbol(sym.UNLESS);}
+//"until"	{return symbol(sym.UNTIL);}
 "end"	{return symbol(sym.END);}
 //"return"	{return symbol(sym.RETURN);}
 //"yield"	{return symbol(sym.YIELD);}
 //"not"	{return symbol(sym.NOT);}
 //"super"	{return symbol(sym.SUPER);}
 //"defined?"	{return symbol(sym.DEFINED);}
-"elsif"	{return symbol(sym.ELSIF);}
+//"elsif"	{return symbol(sym.ELSIF);}
 "else"	{return symbol(sym.ELSE);}
+"puts" {return symbol(sym.PUTS);}
+"true" | "false" {return symbol(sym.BOOLEAN,new Boolean(yytext()));}
 //"case"	{return symbol(sym.CASE);}
 //"when"	{return symbol(sym.WHEN);}
 //"for"	{return symbol(sym.FOR);}
@@ -93,12 +95,16 @@ CONCATENACION = "<<"| ">>";
 //"]" {return symbol(sym.CC);}
 //"$" {return symbol(sym.GLOBAL);}
 //"@" {return symbol(sym.ARROBA);}
-{OPERADOR} {return symbol(sym.OPERADOR, new String(yytext()));}
+"+" {return symbol(sym.PLUS);}
+"-" {return symbol(sym.MINUS);}
+"*" {return symbol(sym.MUL);}
+"/" {return symbol(sym.DIV);}
+//{OPERADOR} {return symbol(sym.OPERADOR, new String(yytext()));}
 //"\""~"\"" {return symbol(sym.LITERAL, new String(yytext()));}
 
 //; {return symbol(sym.SEMICOLON);}
 {ASIGNACION} {return symbol(sym.ASIGNACION, new String(yytext()));}
-{COMPARACION} {return symbol(sym.COMPARACION, new String(yytext()));}
+//{COMPARACION} {return symbol(sym.COMPARACION, new String(yytext()));}
 //{CONCATENACION} {return symbol(sym.CONCATENACION, new String(yytext()));}
 
 {NL}				{ return symbol(sym.CRLF); }
