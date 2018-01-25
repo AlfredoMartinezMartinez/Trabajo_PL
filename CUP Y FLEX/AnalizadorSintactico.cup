@@ -1,4 +1,5 @@
 /*­­­­Sección de declaraciones package e imports­­­­­­­­­*/
+import java.util.*;
 import java_cup.runtime.*;
 /*­­­­ Sección componentes de código de usuario ­­­­*/
 parser code {:
@@ -38,10 +39,14 @@ RESCUE
 
 */
 /* Produciones de flujo normal */
-terminal  IF,END,ELSE,THEN,INT,ID,ASIGNACION,SEMICOLON,CRLF,PLUS,MINUS,MUL,DIV,PUTS,BOOLEAN;
+terminal  IF,END,ELSE,THEN,SEMICOLON,CRLF,PUTS;
+terminal boolean BOOLEAN;
+terminal int INT;
+terminal String ID,ASIGNACION,PLUS,MINUS,MUL,DIV,COMPARACION,LOGICO;
 //aqui deberemos poner el tipo de objeto
-non terminal prog,expression_list,sentence,expression,puts,rvalue,plus,minus,mul,div,bucle_if,
-assignment,reference,number,terminator;
+non terminal prog;
+non terminal ASTNode      expression_list,sentence,expression,puts,rvalue,plus,minus,mul,div,bucle_if,
+assignment,reference,number,terminator,expression_bool,condif_list;
 
 
 precedence left SEMICOLON,CRLF;
@@ -57,8 +62,10 @@ sentence ::= puts
             | rvalue
             | bucle_if;
 
-expression ::= BOOLEAN;
+expression ::= BOOLEAN| reference | rvalue| assignment;
 
+condif_list::= expression_bool LOGICO condif_list| expression_bool;
+expression_bool::= BOOLEAN| rvalue COMPARACION rvalue;
 puts ::= PUTS expression;
 
 rvalue ::= plus
@@ -67,15 +74,15 @@ rvalue ::= plus
           | div
           | number;
 
-plus ::= number PLUS number;
+plus ::= number PLUS rvalue;
 
-minus ::= number MINUS number;
+minus ::= number MINUS rvalue;
 
-mul ::= number MUL number;
+mul ::= number MUL rvalue;
 
-div ::= number DIV number;
+div ::= number DIV rvalue;
 
-bucle_if ::= IF expression THEN CRLF expression_list ELSE CRLF expression_list END;
+bucle_if ::= IF condif_list THEN CRLF expression_list ELSE CRLF expression_list END;
 
 assignment ::= ID ASIGNACION rvalue;
 

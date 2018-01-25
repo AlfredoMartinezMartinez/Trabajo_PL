@@ -45,8 +45,8 @@ TAB = \t
 PUNTO = "."|","|":";
 //OPERADOR = ".."|"..."|"+"|"-"|"*"|"/"|"%"|"**";
 ASIGNACION ="+="|"-="|"*="|"/="|"%="|"**="|"&="|"|="|"^="|"<<="|">>="|"&&="|"||="|"=";
-COMPARACION =  > | >= | < | <= | == | !=;
-LOGICO =  "|" | "^" | "&" | "&&" | "||"|"and"|"or";
+COMPARACION = ">" | ">=" | "<" | "<=" | "==" | "!=";
+LOGICO =  "|" | "^" | & | "&&" | "||"|"and"|"or";
 CONCATENACION = "<<"| ">>";
 %%
 /* ------------------------Seccion de reglas y acciones ----------------------*/
@@ -82,7 +82,7 @@ CONCATENACION = "<<"| ">>";
 //"nil"	{return symbol(sym.NIL);}
 //"break"	{return symbol(sym.BREAK);}
 //"self"	{return symbol(sym.SELF);}
-//{LOGICO} {return symbol(sym.LOGICO,new String(yytext()));}
+{LOGICO} {return symbol(sym.LOGICO,new String(yytext()));}
 //. {return symbol(sym.PUNTO);}
 //, {return symbol(sym.COMA);}
 //\"[:jletterdigit:]*\" {return symbol(sym.STRING, new String(yytext()));}
@@ -95,16 +95,16 @@ CONCATENACION = "<<"| ">>";
 //"]" {return symbol(sym.CC);}
 //"$" {return symbol(sym.GLOBAL);}
 //"@" {return symbol(sym.ARROBA);}
-"+" {return symbol(sym.PLUS);}
-"-" {return symbol(sym.MINUS);}
-"*" {return symbol(sym.MUL);}
-"/" {return symbol(sym.DIV);}
+"+" {return symbol(sym.PLUS, new String(yytext()));}
+"-" {return symbol(sym.MINUS, new String(yytext()));}
+"*" {return symbol(sym.MUL, new String(yytext()));}
+"/" {return symbol(sym.DIV, new String(yytext()));}
 //{OPERADOR} {return symbol(sym.OPERADOR, new String(yytext()));}
 //"\""~"\"" {return symbol(sym.LITERAL, new String(yytext()));}
 
 //; {return symbol(sym.SEMICOLON);}
 {ASIGNACION} {return symbol(sym.ASIGNACION, new String(yytext()));}
-//{COMPARACION} {return symbol(sym.COMPARACION, new String(yytext()));}
+{COMPARACION} {return symbol(sym.COMPARACION, new String(yytext()));}
 //{CONCATENACION} {return symbol(sym.CONCATENACION, new String(yytext()));}
 
 {NL}				{ return symbol(sym.CRLF); }
