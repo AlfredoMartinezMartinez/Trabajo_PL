@@ -1,7 +1,6 @@
 grammar Practica;
 
 @header {
-	package tools;
 	import java.util.*;
 }
 @parser::members {

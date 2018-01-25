@@ -1,7 +1,5 @@
 import java.util.Map;
 
-public class ASTNode {
-	public Object execute(Map <String, Object> symbolTable){
-		return null;
-	}
+public abstract class ASTNode {
+	abstract public Object execute(Map <String, Object> symbolTable);
 }
