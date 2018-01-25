@@ -40,13 +40,13 @@ RESCUE
 */
 /* Produciones de flujo normal */
 terminal  DO,IF,WHILE,UNLESS,UNTIL,END,ELSIF,ELSE,THEN,INT,
-ID,ASIGNACION,COMPARACION,SEMICOLON,CRLF;
+ID,ASIGNACION,COMPARACION,SEMICOLON,CRLF,OPERADOR;
 //aqui deberemos poner el tipo de objeto
 non terminal prog,expression_list,expression,rvalue,bvalue,bucle_if,cons_unless,cons_if,bucle_while,
 assignment,lvalue,terminator,op;
 
 
-precedence left SEMICOLON,CRLF;
+precedence left SEMICOLON,CRLF,OPERADOR;
 /* ­­­­­­­­­­­­­­ Declaración de la gramática  ­­­­­­­­­­­*/
 prog ::= expression_list;
 
@@ -84,3 +84,4 @@ assignment ::= lvalue ASIGNACION rvalue;
 lvalue ::= ID ;
 
 terminator ::= SEMICOLON terminator| CRLF terminator | SEMICOLON | CRLF;
+op::= OPERADOR;
