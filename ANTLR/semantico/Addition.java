@@ -14,7 +14,6 @@ public class Addition extends ASTNode {
 		this.oper2 = oper2;
 	}
 
-	@Override
 	public Object execute(Map <String, Object> symbolTable) {
 		return (int)oper1.execute(symbolTable) + (int)oper2.execute(symbolTable);
 	}

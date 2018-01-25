@@ -7,7 +7,7 @@ grammar Practica;
 }
 
 prog  : {List<ASTNode> body = new ArrayList<ASTNode>(); Map <String, Object> symbolTable = new HashMap<String, Object>();} 
-	(sentence {body.add($sentence.node);})* CRLF 
+	(sentence CRLF {body.add($sentence.node);})* 
 	{for (ASTNode n: body) {
 	    n.execute(symbolTable);
 	 }};
@@ -18,10 +18,12 @@ sentence returns [ASTNode node]:  print {$node = $print.node;}
 				| rvalue {$node = $rvalue.node;}
       				| bucle_if {$node = $bucle_if.node;};
 
-expression returns [ASTNode node]: BOOLEAN {$node = new Constante(Boolean.parseBoolean($BOOLEAN.text));};
+expression returns [ASTNode node]: BOOLEAN {$node = new Bool(Boolean.parseBoolean($BOOLEAN.text));};
       
 
-print returns [ASTNode node]: PRINT expression {$node= new Print($expression.node);};
+print returns [ASTNode node]: PRINT reference {$node= new Print($reference.node);}
+			    | PRINT rvalue {$node= new Print($rvalue.node);}
+			    | PRINT string {$node= new Print($string.node);};
 	
 rvalue returns [ASTNode node]: plus {$node = $plus.node;}
      			     | minus {$node = $minus.node;}
@@ -42,16 +44,18 @@ div returns [ASTNode node]:
 		 n1 = number {$node = $n1.node;} (DIV n2=number {$node = new Division($node, $n2.node);})*;
 
 bucle_if returns [ASTNode node]: IF expression {List <ASTNode> ifbody = new ArrayList <ASTNode>();}
-					THEN CRLF (e1=sentence {ifbody.add($e1.node);})* 
+					THEN CRLF (e1=sentence CRLF {ifbody.add($e1.node);})* 
 				 ELSE {List <ASTNode> elsebody = new ArrayList <ASTNode>();}
 					CRLF (e2=sentence {elsebody.add($e2.node);})* CRLF END
 				{$node = new If($expression.node, ifbody, elsebody);};
 
 assignment returns [ASTNode node] : ID ASSIGN rvalue {$node = new Assignment($ID.text,$rvalue.node);};
 
-reference returns [ASTNode node] : ID {$node = new Reference($ID.text);} ;
-
+reference returns [ASTNode node] : ID {$node = new Reference($ID.text);};
+				
 number returns [ASTNode node]: INT {$node = new Constante(Integer.parseInt($INT.text));};
+
+string returns [ASTNode node]: STRING {$node = new Cadena(String.valueOf($STRING.text));};
 
 ASSIGN : '=';
 OPCOMP : '==' | '!=' | '=~' | '<=>' | '>' | '>=' | '<' | '<=' | '===' | '!~' ;
@@ -69,7 +73,7 @@ PRINT : 'puts';
 INT : [0-9]+;
 BOOLEAN : 'true' | 'false' ;
 ID : [a-zA-Z_][a-zA-Z0-9_]*;
-
+STRING : '"' (~'"' | '"')* '"' ;
 SEMICOLON : ';';
 CRLF : '\r'? '\n';
 
