@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Addition implements ASTNode {
+public class Addition extends ASTNode {
 
 	private ASTNode oper1;
 	private ASTNode oper2;

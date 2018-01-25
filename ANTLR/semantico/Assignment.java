@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Assignment implements ASTNode {
+public class Assignment extends ASTNode {
   private String name;
   private ASTNode expression;
 
