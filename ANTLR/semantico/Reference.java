@@ -3,10 +3,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Reference implements ASTNode {
+public class Reference extends ASTNode {
   private String name;
 
-  public Reference (String name, ASTNode expression){
+  public Reference (String name){
     super();
     this.name = name;
   }

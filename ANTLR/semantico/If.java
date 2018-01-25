@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 
-public class If implements ASTNode {
+public class If extends ASTNode {
 	private ASTNode conditional;
 	private List<ASTNode> ifbody;
 	private List<ASTNode> elsebody;
