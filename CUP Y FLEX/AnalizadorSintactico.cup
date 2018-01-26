@@ -41,22 +41,30 @@ RESCUE
 /* Produciones de flujo normal */
 terminal  IF,END,ELSE,THEN,SEMICOLON,CRLF,PUTS;
 terminal boolean BOOLEAN;
-terminal int INT;
-terminal String ID,ASIGNACION,PLUS,MINUS,MUL,DIV,COMPARACION,LOGICO;
+terminal Integer INT;
+terminal String ID,ASIGNACION,PLUS,MINUS,MUL,DIV,COMPARACION,LOGICO,LITERAL;
 //aqui deberemos poner el tipo de objeto
 non terminal prog;
 non terminal ASTNode      expression_list,sentence,expression,puts,rvalue,plus,minus,mul,div,bucle_if,
-assignment,reference,number,terminator,expression_bool,condif_list;
+assignment,reference,number,terminator,expression_bool,condif_list,string;
 
 
 precedence left SEMICOLON,CRLF;
 /* ­­­­­­­­­­­­­­ Declaración de la gramática  ­­­­­­­­­­­*/
-prog ::= expression_list;
+prog ::= expression_list:el {:Map <String, Object> prog=new HashMap<String, Object>();
+                        el.execute(prog);
+                         :};
 
-expression_list::= sentence terminator expression_list|
-                  sentence terminator;
+expression_list::= sentence:s terminator expression_list:el{:
+                    RESULT= new SentenceList(s,el);
 
-sentence ::= puts
+                  :}|
+                  sentence:s terminator{:
+                      RESULT= new SentenceList(s);
+
+                    :};
+
+sentence ::= puts:p{: RESULT= new Sentence(p);:}
             | assignment
             | reference
             | rvalue
@@ -66,8 +74,11 @@ expression ::= BOOLEAN| reference | rvalue| assignment;
 
 condif_list::= expression_bool LOGICO condif_list| expression_bool;
 expression_bool::= BOOLEAN| rvalue COMPARACION rvalue;
-puts ::= PUTS expression;
 
+
+puts ::= PUTS expression| PUTS string:s {: RESULT= new Print(s);:};
+
+string ::= LITERAL:l{: RESULT = new Cadena(l);:};
 rvalue ::= plus
           | minus
           | mul
@@ -88,6 +99,6 @@ assignment ::= ID ASIGNACION rvalue;
 
 reference ::= ID;
 
-number ::= INT;
+number ::= INT:i {: RESULT= new Constante(i); :};
 
 terminator ::= SEMICOLON terminator| CRLF terminator | SEMICOLON | CRLF;

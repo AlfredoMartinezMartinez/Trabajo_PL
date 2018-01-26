@@ -100,7 +100,7 @@ CONCATENACION = "<<"| ">>";
 "*" {return symbol(sym.MUL, new String(yytext()));}
 "/" {return symbol(sym.DIV, new String(yytext()));}
 //{OPERADOR} {return symbol(sym.OPERADOR, new String(yytext()));}
-//"\""~"\"" {return symbol(sym.LITERAL, new String(yytext()));}
+"\""~"\"" {return symbol(sym.LITERAL, new String(yytext()));}
 
 //; {return symbol(sym.SEMICOLON);}
 {ASIGNACION} {return symbol(sym.ASIGNACION, new String(yytext()));}
