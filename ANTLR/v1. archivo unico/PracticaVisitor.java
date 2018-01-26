@@ -137,11 +137,12 @@ public interface PracticaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBucle_while(PracticaParser.Bucle_whileContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PracticaParser#assignment}.
+	 * Visit a parse tree produced by the {@code assi}
+	 * labeled alternative in {@link PracticaParser#assignment}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAssignment(PracticaParser.AssignmentContext ctx);
+	T visitAssi(PracticaParser.AssiContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code impID}
 	 * labeled alternative in {@link PracticaParser#print}.
@@ -187,4 +188,10 @@ public interface PracticaVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitCrlf(PracticaParser.CrlfContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PracticaParser#bool}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBool(PracticaParser.BoolContext ctx);
 }

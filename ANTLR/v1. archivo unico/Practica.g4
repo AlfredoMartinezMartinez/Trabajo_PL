@@ -3,11 +3,12 @@ prog  : expression_list;
 expression_list : expression_list expression terminator
                   | expression terminator 
                   | terminator
+                  | print
                   ;
 expression : rvalue			#rvalor	
 			|bucle_if		#b_if	
 			|bucle_while	#b_while	
-			|BOOLEAN		#booleano	
+			|bool		    #booleano	
 			|print 			#imprime	
 			;
 rvalue : assignment 			#assign
@@ -38,7 +39,8 @@ bucle_while : WHILE expression crlf DO crlf expression_list END
 	    | WHILE expression terminator 
 	    | UNTIL expression crlf DO expression_list END
 	    ;
-assignment : lvalue ASSIGN rvalue;
+assignment : lvalue ASSIGN rvalue #assi
+			;
 print : PRINT lvalue #impID
 	  | PRINT rvalue #impNum
 	  | PRINT string #impString
@@ -51,10 +53,12 @@ terminator : terminator SEMICOLON
            | crlf
            ;
 crlf : CRLF;
+bool : TRUE | FALSE ;
 ASSIGN : '=';
 OPCOMP : '==' | '!=' | '=~' | '<=>' | '>' | '>=' | '<' | '<=' | '===' | '!~' ; 
 
-
+TRUE :'TRUE';
+FALSE :'FALSE';
 WHILE : 'while' ;
 UNTIL : 'until' ;
 UNLESS : 'unless' ;
@@ -71,9 +75,8 @@ MUL : '*';
 DIV : '/';
 
 PRINT : 'puts';
-BOOLEAN : 'true' | 'false' ;
 
-STRING : '"' (~'"' | '"')* '"' ;
+STRING : '"'('\\'[bfrnt\\"]|~[\n"EOF])*'"';
 INT : [0-9]+;
 FLOAT : [0-9]*'.'[0-9]+;
 ID : [a-zA-Z_][a-zA-Z0-9_]*;

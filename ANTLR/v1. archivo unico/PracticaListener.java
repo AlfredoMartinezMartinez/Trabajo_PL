@@ -223,15 +223,17 @@ public interface PracticaListener extends ParseTreeListener {
 	 */
 	void exitBucle_while(PracticaParser.Bucle_whileContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PracticaParser#assignment}.
+	 * Enter a parse tree produced by the {@code assi}
+	 * labeled alternative in {@link PracticaParser#assignment}.
 	 * @param ctx the parse tree
 	 */
-	void enterAssignment(PracticaParser.AssignmentContext ctx);
+	void enterAssi(PracticaParser.AssiContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link PracticaParser#assignment}.
+	 * Exit a parse tree produced by the {@code assi}
+	 * labeled alternative in {@link PracticaParser#assignment}.
 	 * @param ctx the parse tree
 	 */
-	void exitAssignment(PracticaParser.AssignmentContext ctx);
+	void exitAssi(PracticaParser.AssiContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code impID}
 	 * labeled alternative in {@link PracticaParser#print}.
@@ -308,4 +310,14 @@ public interface PracticaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitCrlf(PracticaParser.CrlfContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PracticaParser#bool}.
+	 * @param ctx the parse tree
+	 */
+	void enterBool(PracticaParser.BoolContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PracticaParser#bool}.
+	 * @param ctx the parse tree
+	 */
+	void exitBool(PracticaParser.BoolContext ctx);
 }

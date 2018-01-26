@@ -1,9 +1,9 @@
 #Vamos a hacer una suma condicional
-puts hola
-if true then
+puts "hola"
+if TRUE then
 	x = 5+4
 else
-	x = 0
+	x = 3
 end
 puts "Hello Worlddddd"
 puts x

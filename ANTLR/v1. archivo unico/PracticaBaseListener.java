@@ -243,13 +243,13 @@ public class PracticaBaseListener implements PracticaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAssignment(PracticaParser.AssignmentContext ctx) { }
+	@Override public void enterAssi(PracticaParser.AssiContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAssignment(PracticaParser.AssignmentContext ctx) { }
+	@Override public void exitAssi(PracticaParser.AssiContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -334,6 +334,18 @@ public class PracticaBaseListener implements PracticaListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitCrlf(PracticaParser.CrlfContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBool(PracticaParser.BoolContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBool(PracticaParser.BoolContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

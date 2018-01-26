@@ -1,13 +1,20 @@
 #esto es un comentario
+nt=4
+puts nt
+a=10
 if nt == 4 then
-	5+4
+	nt=5+4
+	puts nt
 else
 if a== 5 	
-	3+2
+	nt=3+1
 end;
 end;
+puts nt
 while nt<a
 do 
-  nt=nt+1
+  nt=nt+1 
+  puts nt
 end
-nt=3*5;
+nt=3*5
+puts nt;
