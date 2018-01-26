@@ -11,8 +11,7 @@ public class Constante extends ASTNode {
 		this.value = value;
 	}
 
-	@Override
 	public Object execute(Map <String, Object> symbolTable) {
-		return value;
+		return (int)value;
 	}
 }
