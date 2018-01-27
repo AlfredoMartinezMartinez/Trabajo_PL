@@ -3,6 +3,7 @@ puts 7*7
 a = 5*9
 if true && 5>3 then
 	puts a
+	puts "hola"
 else
 	puts "elssss"
 end
