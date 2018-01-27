@@ -35,7 +35,7 @@ public class PracticaLexer extends Lexer {
 	};
 
 	private static final String[] _LITERAL_NAMES = {
-		null, "'='", null, "'TRUE'", "'FALSE'", "'while'", "'until'", "'unless'", 
+		null, "'='", null, "'true'", "'false'", "'while'", "'until'", "'unless'", 
 		"'if'", "'do'", "'then'", "'elsif'", "'else'", "'end'", "'+'", "'-'", 
 		"'*'", "'/'", "'puts'", null, null, null, null, "';'"
 	};
@@ -136,8 +136,8 @@ public class PracticaLexer extends Lexer {
 		"\2\2CD\7@\2\2DN\7?\2\2EN\7>\2\2FG\7>\2\2GN\7?\2\2HI\7?\2\2IJ\7?\2\2JN"+
 		"\7?\2\2KL\7#\2\2LN\7\u0080\2\2M9\3\2\2\2M;\3\2\2\2M=\3\2\2\2M?\3\2\2\2"+
 		"MB\3\2\2\2MC\3\2\2\2ME\3\2\2\2MF\3\2\2\2MH\3\2\2\2MK\3\2\2\2N\6\3\2\2"+
-		"\2OP\7V\2\2PQ\7T\2\2QR\7W\2\2RS\7G\2\2S\b\3\2\2\2TU\7H\2\2UV\7C\2\2VW"+
-		"\7N\2\2WX\7U\2\2XY\7G\2\2Y\n\3\2\2\2Z[\7y\2\2[\\\7j\2\2\\]\7k\2\2]^\7"+
+		"\2OP\7v\2\2PQ\7t\2\2QR\7w\2\2RS\7g\2\2S\b\3\2\2\2TU\7h\2\2UV\7c\2\2VW"+
+		"\7n\2\2WX\7u\2\2XY\7g\2\2Y\n\3\2\2\2Z[\7y\2\2[\\\7j\2\2\\]\7k\2\2]^\7"+
 		"n\2\2^_\7g\2\2_\f\3\2\2\2`a\7w\2\2ab\7p\2\2bc\7v\2\2cd\7k\2\2de\7n\2\2"+
 		"e\16\3\2\2\2fg\7w\2\2gh\7p\2\2hi\7n\2\2ij\7g\2\2jk\7u\2\2kl\7u\2\2l\20"+
 		"\3\2\2\2mn\7k\2\2no\7h\2\2o\22\3\2\2\2pq\7f\2\2qr\7q\2\2r\24\3\2\2\2s"+

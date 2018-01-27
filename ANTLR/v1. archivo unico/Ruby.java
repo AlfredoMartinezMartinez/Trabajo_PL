@@ -14,7 +14,9 @@ public class Ruby {
         PracticaLexer lexer = new PracticaLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         PracticaParser parser = new PracticaParser(tokens);
-        ParseTree tree = parser.prog(); // parse		
+        ParseTree tree = parser.prog(); // parse
+		/*if ( tree!=null )
+			System.out.println(tree.toStringTree());	*/
 		
         EvalVisitor eval = new EvalVisitor();
         eval.visit(tree);

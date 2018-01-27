@@ -195,13 +195,49 @@ public class PracticaBaseListener implements PracticaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBucle_if(PracticaParser.Bucle_ifContext ctx) { }
+	@Override public void enterIfthen(PracticaParser.IfthenContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBucle_if(PracticaParser.Bucle_ifContext ctx) { }
+	@Override public void exitIfthen(PracticaParser.IfthenContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIfclrf(PracticaParser.IfclrfContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIfclrf(PracticaParser.IfclrfContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterUnlessthen(PracticaParser.UnlessthenContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUnlessthen(PracticaParser.UnlessthenContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterUnlessclrf(PracticaParser.UnlessclrfContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUnlessclrf(PracticaParser.UnlessclrfContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

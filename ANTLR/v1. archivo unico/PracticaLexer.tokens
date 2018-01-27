@@ -25,8 +25,8 @@ CRLF=24
 WS=25
 COMMENT=26
 '='=1
-'TRUE'=3
-'FALSE'=4
+'true'=3
+'false'=4
 'while'=5
 'until'=6
 'unless'=7

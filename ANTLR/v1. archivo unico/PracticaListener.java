@@ -183,15 +183,53 @@ public interface PracticaListener extends ParseTreeListener {
 	 */
 	void exitAssign(PracticaParser.AssignContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PracticaParser#bucle_if}.
+	 * Enter a parse tree produced by the {@code ifthen}
+	 * labeled alternative in {@link PracticaParser#bucle_if}.
 	 * @param ctx the parse tree
 	 */
-	void enterBucle_if(PracticaParser.Bucle_ifContext ctx);
+	void enterIfthen(PracticaParser.IfthenContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link PracticaParser#bucle_if}.
+	 * Exit a parse tree produced by the {@code ifthen}
+	 * labeled alternative in {@link PracticaParser#bucle_if}.
 	 * @param ctx the parse tree
 	 */
-	void exitBucle_if(PracticaParser.Bucle_ifContext ctx);
+	void exitIfthen(PracticaParser.IfthenContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ifclrf}
+	 * labeled alternative in {@link PracticaParser#bucle_if}.
+	 * @param ctx the parse tree
+	 */
+	void enterIfclrf(PracticaParser.IfclrfContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ifclrf}
+	 * labeled alternative in {@link PracticaParser#bucle_if}.
+	 * @param ctx the parse tree
+	 */
+	void exitIfclrf(PracticaParser.IfclrfContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code unlessthen}
+	 * labeled alternative in {@link PracticaParser#bucle_if}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnlessthen(PracticaParser.UnlessthenContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code unlessthen}
+	 * labeled alternative in {@link PracticaParser#bucle_if}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnlessthen(PracticaParser.UnlessthenContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code unlessclrf}
+	 * labeled alternative in {@link PracticaParser#bucle_if}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnlessclrf(PracticaParser.UnlessclrfContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code unlessclrf}
+	 * labeled alternative in {@link PracticaParser#bucle_if}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnlessclrf(PracticaParser.UnlessclrfContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PracticaParser#cons_unless}.
 	 * @param ctx the parse tree

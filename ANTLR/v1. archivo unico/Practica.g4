@@ -18,15 +18,15 @@ rvalue : assignment 			#assign
          | rvalue PLUS rvalue 	#plus
          | rvalue MINUS rvalue	#minus
          | lvalue 				#id
-         | INT 					#int
-         //| FLOAT #float
+         | INT 					#int         
          ;
 
-bucle_if : IF expression THEN crlf expression_list cons_if 
-		 | IF expression crlf expression_list cons_if 
-		 | UNLESS expression THEN crlf expression_list cons_unless
-         | UNLESS expression crlf expression_list cons_unless
+bucle_if : IF expression THEN crlf expression_list cons_if #ifthen
+		 | IF expression crlf expression_list cons_if 		#ifclrf
+		 | UNLESS expression THEN crlf expression_list cons_unless #unlessthen
+         | UNLESS expression crlf expression_list cons_unless	#unlessclrf         
          ; 
+         
 cons_unless : ELSE crlf expression_list crlf END
             | crlf END
             ;
@@ -35,7 +35,7 @@ cons_if  : ELSIF expression THEN crlf expression_list cons_if
          | ELSE crlf expression_list END
          | END
          ;
-bucle_while : WHILE expression crlf DO crlf expression_list END
+bucle_while : WHILE expression DO crlf expression_list END
 	    | WHILE expression terminator 
 	    | UNTIL expression crlf DO expression_list END
 	    ;
@@ -57,8 +57,8 @@ bool : TRUE | FALSE ;
 ASSIGN : '=';
 OPCOMP : '==' | '!=' | '=~' | '<=>' | '>' | '>=' | '<' | '<=' | '===' | '!~' ; 
 
-TRUE :'TRUE';
-FALSE :'FALSE';
+TRUE :'true';
+FALSE :'false';
 WHILE : 'while' ;
 UNTIL : 'until' ;
 UNLESS : 'unless' ;

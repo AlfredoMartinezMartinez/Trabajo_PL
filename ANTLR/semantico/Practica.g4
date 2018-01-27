@@ -73,7 +73,7 @@ PRINT : 'puts';
 INT : [0-9]+;
 BOOLEAN : 'true' | 'false' ;
 ID : [a-zA-Z_][a-zA-Z0-9_]*;
-STRING : '"' (~'"' | '"')* '"' ;
+STRING : '"'('\\'[bfrnt\\"]|~[\n"EOF])*'"'; 
 SEMICOLON : ';';
 CRLF : '\r'? '\n';
 

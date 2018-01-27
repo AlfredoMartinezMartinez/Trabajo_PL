@@ -113,11 +113,33 @@ public interface PracticaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAssign(PracticaParser.AssignContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PracticaParser#bucle_if}.
+	 * Visit a parse tree produced by the {@code ifthen}
+	 * labeled alternative in {@link PracticaParser#bucle_if}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBucle_if(PracticaParser.Bucle_ifContext ctx);
+	T visitIfthen(PracticaParser.IfthenContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ifclrf}
+	 * labeled alternative in {@link PracticaParser#bucle_if}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIfclrf(PracticaParser.IfclrfContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code unlessthen}
+	 * labeled alternative in {@link PracticaParser#bucle_if}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnlessthen(PracticaParser.UnlessthenContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code unlessclrf}
+	 * labeled alternative in {@link PracticaParser#bucle_if}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnlessclrf(PracticaParser.UnlessclrfContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PracticaParser#cons_unless}.
 	 * @param ctx the parse tree
