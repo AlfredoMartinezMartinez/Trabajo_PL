@@ -110,13 +110,16 @@ public class EvalVisitor extends PracticaBaseVisitor<Value> {
 						new Value(!left.equals(right));
 				}
 				else if (id.equals(">=")) {
-					return new Value(this.visit(ctx.rvalue(0)).equals(this.visit(ctx.rvalue(1))));
+					return new Value(left.asInteger()>= right.asInteger());
 					}
 					else if (id.equals("<") ){
-						return new Value(this.visit(ctx.rvalue(0)).equals(this.visit(ctx.rvalue(1))));
+						return new Value(left.asInteger()< right.asInteger());
 						}
 						else if (id.equals(">")) {
-							return new Value(this.visit(ctx.rvalue(0)).equals(this.visit(ctx.rvalue(1))));
+							return new Value(left.asInteger()> right.asInteger());
+							}
+							else if (id.equals("<=")) {
+								return new Value(left.asInteger() <= right.asInteger());
 							}
 		}
 		throw new RuntimeException("not implemented: comparator operator " + ctx.OPCOMP().getText());
