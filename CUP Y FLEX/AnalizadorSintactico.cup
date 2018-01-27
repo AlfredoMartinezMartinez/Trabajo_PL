@@ -49,7 +49,7 @@ non terminal ASTNode      expression_list,sentence,expression,puts,rvalue,plus,m
 assignment,reference,number,terminator,expression_bool,condif_list,string;
 
 
-precedence left SEMICOLON,CRLF;
+precedence left SEMICOLON,CRLF,PLUS,MINUS,MUL,DIV,LOGICO;
 /* ­­­­­­­­­­­­­­ Declaración de la gramática  ­­­­­­­­­­­*/
 prog ::= expression_list:el {:Map <String, Object> prog=new HashMap<String, Object>();
                         el.execute(prog);
@@ -65,39 +65,49 @@ expression_list::= sentence:s terminator expression_list:el{:
                     :};
 
 sentence ::= puts:p{: RESULT= new Sentence(p);:}
-            | assignment
-            | reference
-            | rvalue
-            | bucle_if;
+            | assignment:a{: RESULT= new Sentence(a);:}
+            | reference:r{: RESULT= new Sentence(r);:}
+            | rvalue:rv{: RESULT= new Sentence(rv);:}
+            | bucle_if:i{: RESULT= new Sentence(i);:};
 
-expression ::= BOOLEAN| reference | rvalue| assignment;
+expression ::= BOOLEAN:b{:RESULT= new Bool(b);:}
+            | reference:r{:RESULT=r;:}
+            | rvalue:r{:RESULT=r;:}
+            | assignment:a{:RESULT=a;:};
 
-condif_list::= expression_bool LOGICO condif_list| expression_bool;
-expression_bool::= BOOLEAN| rvalue COMPARACION rvalue;
+
+condif_list::= condif_list:l1 LOGICO:t condif_list:l2{:RESULT= new Logic_comp(l1,t,l2);:}
+| expression_bool:eb {:RESULT= eb;:};
 
 
-puts ::= PUTS expression| PUTS string:s {: RESULT= new Print(s);:};
+expression_bool::= BOOLEAN:b {:RESULT= new Bool(b); :}| rvalue:r1 COMPARACION:c rvalue:r2{:RESULT=new Compare(r1,c,r2);:};
+
+
+puts ::= PUTS expression:e {:RESULT =new Print(e); :}
+| PUTS string:s {: RESULT= new Print(s);:};
 
 string ::= LITERAL:l{: RESULT = new Cadena(l);:};
-rvalue ::= plus
-          | minus
-          | mul
-          | div
-          | number;
 
-plus ::= rvalue PLUS rvalue;
+rvalue ::= plus:p {: RESULT=p; :}
+          | minus:m {:RESULT=m;:}
+          | mul:m{:RESULT=m;:}
+          | div:d{:RESULT=d;:}
+          | number:n{:RESULT=n;:};
 
-minus ::= rvalue MINUS rvalue;
+plus ::= rvalue:r1 PLUS rvalue:r2 {:RESULT= new Addition(r1,r2); :};
 
-mul ::= rvalue MUL rvalue;
+minus ::= rvalue:r1 MINUS rvalue:r2{:RESULT= new Substract(r1,r2);  :};
 
-div ::= rvalue DIV rvalue;
+mul ::= rvalue:r1 MUL rvalue:r2{: RESULT= new Multiplication(r1,r2); :};
 
-bucle_if ::= IF condif_list THEN CRLF expression_list ELSE CRLF expression_list END;
+div ::= rvalue:r1 DIV rvalue:r2 {: RESULT= new Division(r1,r2);  :};
 
-assignment ::= ID ASIGNACION rvalue;
+bucle_if ::= IF condif_list:cond THEN CRLF expression_list:e1 ELSE CRLF expression_list:e2 CRLF END
+{: RESULT= new If(cond,e1,e2 );  :};
 
-reference ::= ID;
+assignment ::= ID:id ASIGNACION rvalue:rval {: RESULT= new Assignment(id,rval);  :};
+
+reference ::= ID:id {: RESULT= new Reference(id);:};
 
 number ::= INT:i {: RESULT= new Constante(i); :};
 
