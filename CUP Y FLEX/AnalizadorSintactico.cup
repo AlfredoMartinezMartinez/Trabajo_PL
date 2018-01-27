@@ -102,7 +102,7 @@ mul ::= rvalue:r1 MUL rvalue:r2{: RESULT= new Multiplication(r1,r2); :};
 
 div ::= rvalue:r1 DIV rvalue:r2 {: RESULT= new Division(r1,r2);  :};
 
-bucle_if ::= IF condif_list:cond THEN CRLF expression_list:e1 ELSE CRLF expression_list:e2 CRLF END
+bucle_if ::= IF condif_list:cond THEN CRLF expression_list:e1 ELSE CRLF expression_list:e2 END
 {: RESULT= new If(cond,e1,e2 );  :};
 
 assignment ::= ID:id ASIGNACION rvalue:rval {: RESULT= new Assignment(id,rval);  :};

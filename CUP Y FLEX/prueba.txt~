@@ -1,6 +1,6 @@
 puts "hola"
 puts 7*7
-a = 5*9
+a = 5
 if true && 5>3 then
 	puts a
 else
