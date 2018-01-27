@@ -85,13 +85,13 @@ rvalue ::= plus
           | div
           | number;
 
-plus ::= number PLUS rvalue;
+plus ::= rvalue PLUS rvalue;
 
-minus ::= number MINUS rvalue;
+minus ::= rvalue MINUS rvalue;
 
-mul ::= number MUL rvalue;
+mul ::= rvalue MUL rvalue;
 
-div ::= number DIV rvalue;
+div ::= rvalue DIV rvalue;
 
 bucle_if ::= IF condif_list THEN CRLF expression_list ELSE CRLF expression_list END;
 
