@@ -5,10 +5,10 @@ import java.util.ArrayList;
 
 public class If extends ASTNode {
 	private ASTNode conditional;
-	private List<ASTNode> ifbody;
-	private List<ASTNode> elsebody;
+	private ASTNode ifbody;
+	private ASTNode elsebody;
 
-	public If(ASTNode conditional, List<ASTNode> ifbody, List<ASTNode> elsebody) {
+	public If(ASTNode conditional, ASTNode ifbody, ASTNode elsebody) {
 		super();
 		this.conditional = conditional;
 		this.ifbody = ifbody;
@@ -17,13 +17,9 @@ public class If extends ASTNode {
 
 	public Object execute(Map <String, Object> symbolTable) {
 		if ((boolean)conditional.execute(symbolTable)) {
-			for(ASTNode n : ifbody) {
-				n.execute(symbolTable);
-			}
+			ifbody.execute(symbolTable);
 		} else {
-			for(ASTNode n : elsebody) {
-				n.execute(symbolTable);
-			}
+			elsebody.execute(symbolTable);
 		}
 		return null;
 	}
