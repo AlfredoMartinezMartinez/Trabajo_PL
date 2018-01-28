@@ -13,9 +13,9 @@ public class EvalVisitor extends PracticaBaseVisitor<Value> {
 	
 	@Override
 	public Value visitAssi(PracticaParser.AssiContext ctx) {
-		String id = ctx.lvalue().getText();  // id is left-hand side of '='
-        Value value = this.visit(ctx.rvalue());   // compute value of expression on right
-		return memory.put(id, value);          // store it in our memory
+		String id = ctx.lvalue().getText();  // toma texto de lvalue que contiene un identificador
+        Value value = this.visit(ctx.rvalue());   // evalua la expresion de rvalue
+		return memory.put(id, value);          // almacena en memoria
     }
 	
 	@Override
@@ -42,30 +42,30 @@ public class EvalVisitor extends PracticaBaseVisitor<Value> {
 		
 	@Override 
 	public Value visitDiv(PracticaParser.DivContext ctx) {
-		Value left = visit(ctx.rvalue(0));  // get value of left subrvalueession
-        Value right = visit(ctx.rvalue(1)); // get value of right subrvalueession  
+		Value left = visit(ctx.rvalue(0));  // toma valor de la subexpresion izquierda
+        Value right = visit(ctx.rvalue(1)); // toma valor de la subexpresion derecha  
 		return new Value(left.asInteger() / right.asInteger());       
 		}
 	
 	@Override
 	public Value visitMinus(PracticaParser.MinusContext ctx) { 	
-		Value left = visit(ctx.rvalue(0));  // get value of left subrvalueession
-        Value right = visit(ctx.rvalue(1)); // get value of right subrvalueession  
+		Value left = visit(ctx.rvalue(0));  // toma valor de la subexpresion izquierda
+        Value right = visit(ctx.rvalue(1)); // toma valor de la subexpresion derecha
 		return new Value(left.asInteger() - right.asInteger());   
 		}
 
 	@Override 
 	public Value visitMul(PracticaParser.MulContext ctx) {
-		Value left = visit(ctx.rvalue(0));  // get value of left subrvalueession
-        Value right = visit(ctx.rvalue(1)); // get value of right subrvalueession  
+		Value left = visit(ctx.rvalue(0));  // toma valor de la subexpresion izquierda
+        Value right = visit(ctx.rvalue(1)); // toma valor de la subexpresion derecha
 		return new Value(left.asInteger() * right.asInteger());   
 	}
 	
 		
 	@Override
 	public Value visitPlus(PracticaParser.PlusContext ctx) {
-		Value left = visit(ctx.rvalue(0));  // get value of left subrvalueession
-        Value right = visit(ctx.rvalue(1)); // get value of right subrvalueession  
+		Value left = visit(ctx.rvalue(0));  // toma valor de la subexpresion izquierda
+        Value right = visit(ctx.rvalue(1)); // toma valor de la subexpresion derecha
 		return new Value(left.asInteger() + right.asInteger());   
 		}    
 		
@@ -73,14 +73,14 @@ public class EvalVisitor extends PracticaBaseVisitor<Value> {
 	public Value visitImpID(PracticaParser.ImpIDContext ctx) {
 		String id = ctx.lvalue().getText();
 		if ( memory.containsKey(id) )
-			System.out.println(id +"="+memory.get(id));         // print the result
+			System.out.println(id +"="+memory.get(id)); // imprime identificador y  resultado 
         return null;
 		}
 	
 	@Override
 	public Value visitImpNum(PracticaParser.ImpNumContext ctx) {
-		Value value = visit(ctx.rvalue()); // evaluate the expr child
-        System.out.println(value);         // print the result
+		Value value = visit(ctx.rvalue()); // evalua rvalue
+        System.out.println(value);         // imprime el resultado
         return null; 
 		}
 	
@@ -99,12 +99,10 @@ public class EvalVisitor extends PracticaBaseVisitor<Value> {
         Value right = this.visit(ctx.rvalue(1));
 		
 		if (ctx.OPCOMP() != null) {
-		  if (id.equals("==") ) {
-			//return new Value(this.visit(ctx.rvalue(0)).equals(this.visit(ctx.rvalue(1))));
+		  if (id.equals("==") ) {			
 			return left.isInteger() && right.isInteger()? new Value(Math.abs(left.asInteger() - right.asInteger()) < 1) : new Value(left.equals(right));
 			}
-			else if (id.equals("!=")) {
-				//return new Value(!this.visit(ctx.rvalue(0)).equals(this.visit(ctx.rvalue(1))));
+			else if (id.equals("!=")) {				
 				return left.isInteger() && right.isInteger()?
 						new Value(Math.abs(left.asInteger() - right.asInteger()) > 0) :
 						new Value(!left.equals(right));
@@ -128,24 +126,18 @@ public class EvalVisitor extends PracticaBaseVisitor<Value> {
 	@Override
 	public Value visitIfthen(PracticaParser.IfthenContext ctx) {
 		    
-		//List<PracticaParser.Expression_listContext> conditions = ctx.expression_list();
 		boolean evaluatedExpression = false;
 		
-		//for(PracticaParser.Expression_listContext condition : conditions) {
-        Value evaluated = this.visit(ctx.expression());	
 		
-		
+        Value evaluated = this.visit(ctx.expression());			
 
             if(evaluated.asBoolean()) {
-                evaluatedExpression = true;
-                // evaluate this block whose expr==true
+                evaluatedExpression = true;                
                 this.visit(ctx.expression_list());
                 //break;
-            }
-        //}
+            }        
 
         if(!evaluatedExpression && ctx.cons_if() != null) {
-            // evaluate the else-stat_block (if present == not null)
             this.visit(ctx.cons_if());
         }
 

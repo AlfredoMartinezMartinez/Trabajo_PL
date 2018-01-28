@@ -8,7 +8,7 @@ else
 end
 puts "Hello Worlddddd"
 puts x
-while a!=10 do
+while a!=12 do
  a=a+1
  puts a
 end
