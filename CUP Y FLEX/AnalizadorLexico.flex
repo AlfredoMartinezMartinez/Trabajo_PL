@@ -38,15 +38,16 @@ import java_cup.runtime.*;
 %}
 
 /* Declaraciones de macros NL(nueva linea) BLANCO(espacio en blanco) y TAB(tabulador) */
-ID= [a-zA-Z]+[a-zA-Z0-9"_""-"]*
+ID= [a-zA-Z][a-zA-Z0-9"_""-"]*
 NL = \n|\r;
 BLANCO = " "
 TAB = \t
 PUNTO = "."|","|":";
 //OPERADOR = ".."|"..."|"+"|"-"|"*"|"/"|"%"|"**";
-ASIGNACION ="+="|"-="|"*="|"/="|"%="|"**="|"&="|"|="|"^="|"<<="|">>="|"&&="|"||="|"=";
+//ASIGNACION ="+="|"-="|"*="|"/="|"%="|"**="|"&="|"|="|"^="|"<<="|">>="|"&&="|"||="|"=";
+ASIGNACION = =
 COMPARACION = ">" | ">=" | "<" | "<=" | "==" | "!=";
-LOGICO =  "|" | "^" | & | "&&" | "||"|"and"|"or";
+LOGICO =   "&&" | "||"|"and"|"or";
 CONCATENACION = "<<"| ">>";
 %%
 /* ------------------------Seccion de reglas y acciones ----------------------*/
@@ -88,7 +89,6 @@ CONCATENACION = "<<"| ">>";
 //\"[:jletterdigit:]*\" {return symbol(sym.STRING, new String(yytext()));}
 [0-9]+ 		{return symbol(sym.INT,new Integer(yytext()));}
 //[0-9]+"."([0-9]+) {return symbol(sym.DOUBLE,new Double(yytext()));}
-{ID} {return symbol(sym.ID, new String(yytext()));}
 //"(" {return symbol(sym.PA);}
 //")" {return symbol(sym.PC);}
 //"[" {return symbol(sym.CA);}
@@ -100,10 +100,11 @@ CONCATENACION = "<<"| ">>";
 "*" {return symbol(sym.MUL, new String(yytext()));}
 "/" {return symbol(sym.DIV, new String(yytext()));}
 //{OPERADOR} {return symbol(sym.OPERADOR, new String(yytext()));}
-//"\""~"\"" {return symbol(sym.LITERAL, new String(yytext()));}
-
-//; {return symbol(sym.SEMICOLON);}
+"\""~"\"" {return symbol(sym.LITERAL, new String(yytext()));}
 {ASIGNACION} {return symbol(sym.ASIGNACION, new String(yytext()));}
+{ID} {return symbol(sym.ID, new String(yytext()));}
+//; {return symbol(sym.SEMICOLON);}
+
 {COMPARACION} {return symbol(sym.COMPARACION, new String(yytext()));}
 //{CONCATENACION} {return symbol(sym.CONCATENACION, new String(yytext()));}
 

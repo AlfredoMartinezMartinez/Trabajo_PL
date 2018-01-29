@@ -1,0 +1,20 @@
+#esto es un comentario
+nt=4
+puts nt
+a=5
+if nt != 3 then
+	nt=5+4
+	puts nt
+	puts a
+else
+if a== 5 	
+	nt=3+1
+end
+end
+puts nt
+while nt!=a do 
+  a=a+1 
+  puts a
+end
+nt=3*5
+puts nt

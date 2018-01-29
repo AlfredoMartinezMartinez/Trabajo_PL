@@ -9,9 +9,8 @@ public class Print extends ASTNode {
 	public Print(ASTNode text) {
 		this.text = text;
 	}
-
 	public Object execute(Map <String, Object> symbolTable) {
-		System.out.println(text);
+		System.out.println(text.execute(symbolTable));
 		return null;
 	}
 }
