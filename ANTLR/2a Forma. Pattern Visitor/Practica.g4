@@ -47,11 +47,9 @@ print : PRINT lvalue #impID
 	  ;
 lvalue : ID ;
 string : STRING ;
-terminator : terminator SEMICOLON
-           | terminator crlf
-           | SEMICOLON
-           | crlf
-           ;
+terminator :  terminator crlf           
+          	 | crlf
+          	 ;
 crlf : CRLF;
 bool : TRUE | FALSE ;
 ASSIGN : '=';
