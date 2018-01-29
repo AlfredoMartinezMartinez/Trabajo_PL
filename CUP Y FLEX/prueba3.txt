@@ -1,0 +1,23 @@
+if 123 > 23 then
+  puts "es mayor"
+  else
+  puts "es menor"
+end
+
+if 123 < 23 then
+  puts "es mayor"
+  else
+  puts "es menor"
+end
+
+if 123 <= 23 then
+  puts "es mayor"
+  else
+  puts "es menor"
+end
+
+if 123 >= 23 then
+  puts "es mayor"
+  else
+  puts "es menor"
+end

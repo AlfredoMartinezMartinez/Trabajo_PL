@@ -7,7 +7,7 @@ import java_cup.runtime.*;
 /*--OPCIONES --*/
 /* Nombre de la clase generada para el analizadorlexico*/
 
-%class analex
+%class Yylex
 
 /* Indicar funcionamientoautonomo*/
 
@@ -38,68 +38,75 @@ import java_cup.runtime.*;
 %}
 
 /* Declaraciones de macros NL(nueva linea) BLANCO(espacio en blanco) y TAB(tabulador) */
-ID= [a-zA-Z]+[a-zA-Z0-9"_""-"]*
+ID= [a-zA-Z][a-zA-Z0-9"_""-"]*
 NL = \n|\r;
 BLANCO = " "
 TAB = \t
 PUNTO = "."|","|":";
-OPERADOR = ".."|"..."|"+"|"-"|"*"|"/"|"%"|"**";
-ASIGNACION ="+="|"-="|"*="|"/="|"%="|"**="|"&="|"|="|"^="|"<<="|">>="|"&&="|"||="|"=";
-COMPARACION = "<=>" | ">" | ">=" | "<" | "<=" | "==" | "!=" | "===" | "=~" | "!~";
-LOGICO =  "|" | "^" | "&" | "&&" | "||"|"and"|"or";
+//OPERADOR = ".."|"..."|"+"|"-"|"*"|"/"|"%"|"**";
+//ASIGNACION ="+="|"-="|"*="|"/="|"%="|"**="|"&="|"|="|"^="|"<<="|">>="|"&&="|"||="|"=";
+ASIGNACION = =
+COMPARACION = ">" | ">=" | "<" | "<=" | "==" | "!=";
+LOGICO =   "&&" | "||"|"and"|"or";
 CONCATENACION = "<<"| ">>";
 %%
 /* ------------------------Seccion de reglas y acciones ----------------------*/
 <YYINITIAL> {
-"undef"	{return symbol(sym.UNDEF);}
-"do"	{return symbol(sym.DO);}
-"alias"	{return symbol(sym.ALIAS);}
+//"undef"	{return symbol(sym.UNDEF);}
+//"do"	{return symbol(sym.DO);}
+//"alias"	{return symbol(sym.ALIAS);}
 "if"	{return symbol(sym.IF);}
-"while"	{return symbol(sym.WHILE);}
-"unless"	{return symbol(sym.UNLESS);}
-"until"	{return symbol(sym.UNTIL);}
+//"while"	{return symbol(sym.WHILE);}
+//"unless"	{return symbol(sym.UNLESS);}
+//"until"	{return symbol(sym.UNTIL);}
 "end"	{return symbol(sym.END);}
-"return"	{return symbol(sym.RETURN);}
-"yield"	{return symbol(sym.YIELD);}
-"not"	{return symbol(sym.NOT);}
-"super"	{return symbol(sym.SUPER);}
-"defined?"	{return symbol(sym.DEFINED);}
-"elsif"	{return symbol(sym.ELSIF);}
+//"return"	{return symbol(sym.RETURN);}
+//"yield"	{return symbol(sym.YIELD);}
+//"not"	{return symbol(sym.NOT);}
+//"super"	{return symbol(sym.SUPER);}
+//"defined?"	{return symbol(sym.DEFINED);}
+//"elsif"	{return symbol(sym.ELSIF);}
 "else"	{return symbol(sym.ELSE);}
-"case"	{return symbol(sym.CASE);}
-"when"	{return symbol(sym.WHEN);}
-"for"	{return symbol(sym.FOR);}
-"in"	{return symbol(sym.IN);}
-"rescue"	{return symbol(sym.RESCUE);}
-"ensure"	{return symbol(sym.ENSURE);}
-"class"	{return symbol(sym.CLASS);}
-"module"	{return symbol(sym.MODULE);}
-"redo"	{return symbol(sym.REDO);}
-"def"	{return symbol(sym.DEF);}
+"puts" {return symbol(sym.PUTS);}
+"true" | "false" {return symbol(sym.BOOLEAN,new Boolean(yytext()));}
+//"case"	{return symbol(sym.CASE);}
+//"when"	{return symbol(sym.WHEN);}
+//"for"	{return symbol(sym.FOR);}
+//"in"	{return symbol(sym.IN);}
+//"rescue"	{return symbol(sym.RESCUE);}
+//"ensure"	{return symbol(sym.ENSURE);}
+//"class"	{return symbol(sym.CLASS);}
+//"module"	{return symbol(sym.MODULE);}
+//"redo"	{return symbol(sym.REDO);}
+//"def"	{return symbol(sym.DEF);}
 "then"	{return symbol(sym.THEN);}
-"nil"	{return symbol(sym.NIL);}
-"break"	{return symbol(sym.BREAK);}
-"self"	{return symbol(sym.SELF);}
+//"nil"	{return symbol(sym.NIL);}
+//"break"	{return symbol(sym.BREAK);}
+//"self"	{return symbol(sym.SELF);}
 {LOGICO} {return symbol(sym.LOGICO,new String(yytext()));}
-. {return symbol(sym.PUNTO);}
-, {return symbol(sym.COMA);}
-\"[:jletterdigit:]*\" {return symbol(sym.STRING, new String(yytext()));}
+//. {return symbol(sym.PUNTO);}
+//, {return symbol(sym.COMA);}
+//\"[:jletterdigit:]*\" {return symbol(sym.STRING, new String(yytext()));}
 [0-9]+ 		{return symbol(sym.INT,new Integer(yytext()));}
-[0-9]+"."([0-9]+) {return symbol(sym.DOUBLE,new Double(yytext()));}
-{ID} {return symbol(sym.ID, new String(yytext()));}
-"(" {return symbol(sym.PA);}
-")" {return symbol(sym.PC);}
-"[" {return symbol(sym.CA);}
-"]" {return symbol(sym.CC);}
-"$" {return symbol(sym.GLOBAL);}
-"@" {return symbol(sym.ARROBA);}
-{OPERADOR} {return symbol(sym.OPERADOR, new String(yytext()));}
+//[0-9]+"."([0-9]+) {return symbol(sym.DOUBLE,new Double(yytext()));}
+//"(" {return symbol(sym.PA);}
+//")" {return symbol(sym.PC);}
+//"[" {return symbol(sym.CA);}
+//"]" {return symbol(sym.CC);}
+//"$" {return symbol(sym.GLOBAL);}
+//"@" {return symbol(sym.ARROBA);}
+"+" {return symbol(sym.PLUS, new String(yytext()));}
+"-" {return symbol(sym.MINUS, new String(yytext()));}
+"*" {return symbol(sym.MUL, new String(yytext()));}
+"/" {return symbol(sym.DIV, new String(yytext()));}
+//{OPERADOR} {return symbol(sym.OPERADOR, new String(yytext()));}
 "\""~"\"" {return symbol(sym.LITERAL, new String(yytext()));}
-
-; {return symbol(sym.SEMICOLON);}
 {ASIGNACION} {return symbol(sym.ASIGNACION, new String(yytext()));}
+{ID} {return symbol(sym.ID, new String(yytext()));}
+//; {return symbol(sym.SEMICOLON);}
+
 {COMPARACION} {return symbol(sym.COMPARACION, new String(yytext()));}
-{CONCATENACION} {return symbol(sym.CONCATENACION, new String(yytext()));}
+//{CONCATENACION} {return symbol(sym.CONCATENACION, new String(yytext()));}
 
 {NL}				{ return symbol(sym.CRLF); }
 {TAB}				{ /* ignora los tabuladores */ }

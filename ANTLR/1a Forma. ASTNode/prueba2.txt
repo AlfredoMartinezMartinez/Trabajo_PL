@@ -1,0 +1,7 @@
+value=5
+if false then
+	puts value
+else
+	puts 8/2
+end
+puts "This is Ruby"
